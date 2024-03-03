@@ -1,0 +1,193 @@
+{
+  "nodes": {
+    "cudaTheme_darcula": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1652573498,
+        "narHash": "sha256-aup1DNZlcOuYQEKm7MKLfLbXiR52m9Znr52SR9OCMYg=",
+        "owner": "CudaText-addons",
+        "repo": "cudatext-theme-darcula",
+        "rev": "4a0032b6bead233bb7786507e74754d25d1abfe5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CudaText-addons",
+        "repo": "cudatext-theme-darcula",
+        "type": "github"
+      }
+    },
+    "cuda_differ": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696262054,
+        "narHash": "sha256-ifStE6AXji37Mvc9Ffwi/E2wed9jpJJ6WoHePeT2RbU=",
+        "owner": "CudaText-addons",
+        "repo": "cuda_differ",
+        "rev": "ac8938041ad307ce59021f5ff5d90fb30a3f2b75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CudaText-addons",
+        "repo": "cuda_differ",
+        "type": "github"
+      }
+    },
+    "cuda_find_in_files4": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1703766826,
+        "narHash": "sha256-ty/DdSEuj7ABE2fAjNenbVlbmGafNymyiVWUMEM6s0c=",
+        "owner": "CudaText-addons",
+        "repo": "cuda_find_in_files4",
+        "rev": "20e5a2f829d32a499ceb26c11aada79176075c26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CudaText-addons",
+        "repo": "cuda_find_in_files4",
+        "type": "github"
+      }
+    },
+    "firefox-addons": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1706647585,
+        "narHash": "sha256-HwAWgXIUn0a2FIS5Mye0sAZj1BZ4++YKWzIPM7coFjs=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "9343a32ef3fc2d3be2f3c5266a09c63cc5019438",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1629284811,
+        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c5d161cc0af116a2e17f54316f0bf43f0819785c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "geany-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1699868950,
+        "narHash": "sha256-FmxuuJ3ATNNMNtgDaPpCNqF8dmAxXcCjWq+OwtQCfnU=",
+        "owner": "geany",
+        "repo": "geany-themes",
+        "rev": "b4b0ba9687d80fb22f4d234ca1b16445a7071e81",
+        "type": "github"
+      },
+      "original": {
+        "owner": "geany",
+        "repo": "geany-themes",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1703368619,
+        "narHash": "sha256-ZGPMYL7FMA6enhuwby961bBANmoFX14EA86m2/Jw5Jo=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "a2523ea0343b056ba240abbac90ab5f116a7aa7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1703255338,
+        "narHash": "sha256-Z6wfYJQKmDN9xciTwU3cOiOk+NElxdZwy/FiHctCzjU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "6df37dc6a77654682fe9f071c62b4242b5342e04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1708210246,
+        "narHash": "sha256-Q8L9XwrBK53fbuuIFMbjKvoV7ixfLFKLw4yV+SD28Y8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "69405156cffbdf2be50153f13cbdf9a0bea38e49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "cudaTheme_darcula": "cudaTheme_darcula",
+        "cuda_differ": "cuda_differ",
+        "cuda_find_in_files4": "cuda_find_in_files4",
+        "firefox-addons": "firefox-addons",
+        "geany-themes": "geany-themes",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs",
+        "sops-nix": "sops-nix"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1708500294,
+        "narHash": "sha256-mvJIecY3tDKZh7297mqOtOuAvP7U1rqjfLNfmfkjFpU=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "f6b80ab6cd25e57f297fe466ad689d8a77057c11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

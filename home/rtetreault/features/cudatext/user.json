@@ -1,0 +1,8 @@
+{
+  "ui_theme" : "darcula",
+  "ui_theme_syntax" : "darcula",
+  "tab_size": 2,
+  "tab_spaces": true,
+  "unprinted_show" : true,
+  "unprinted_content" : "s"
+}

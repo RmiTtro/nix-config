@@ -1,0 +1,17 @@
+diff --git a/app/proc_globdata.pas b/app/proc_globdata.pas
+index 9041e8f..2eed2f9 100644
+--- a/app/proc_globdata.pas
++++ b/app/proc_globdata.pas
+@@ -1610,9 +1610,9 @@ begin
+       begin
+         RunCommand('cp', ['-R', '-u', '-t',
+           OpDirLocal,
+-          '/usr/share/cudatext/py',
+-          '/usr/share/cudatext/data',
+-          '/usr/share/cudatext/settings_default'
++          '@out@/share/cudatext/py',
++          '@out@/share/cudatext/data',
++          '@out@/share/cudatext/settings_default'
+           ], S);
+         //set permissions +w for dir+subdirs
+         RunCommand('chmod', ['-R', '+w', OpDirLocal], S);
