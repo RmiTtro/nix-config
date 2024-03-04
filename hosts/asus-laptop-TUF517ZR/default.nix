@@ -31,10 +31,14 @@
   ];
 
   # Bootloader.
-  #boot.loader.systemd-boot.enable = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
+  # Use the systemd-boot EFI boot loader.
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";
+    };
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
