@@ -9,5 +9,6 @@
     enable = true;
     userName = "RmiTtro";
     userEmail = "tetreault.remi@gmail.com";
+    package = pkgs.gitFull;
   };
 }
