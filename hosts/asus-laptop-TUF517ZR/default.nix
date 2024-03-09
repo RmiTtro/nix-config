@@ -10,11 +10,13 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-    # If you want to use modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
+    inputs.hardware.nixosModules.common-cpu-intel
+    inputs.hardware.nixosModules.common-pc-laptop
+    inputs.hardware.nixosModules.common-pc-laptop-ssd
+    inputs.hardware.nixosModules.common-gpu-nvidia
+    # Use this one if you plan to use the mux switch to have the dGPU control the laptop monitor directly
+    #inputs.hardware.nixosModules.common-gpu-nvidia-nonprime
 
-    # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
     ../common/nixos
     ../common/nixpkgs
@@ -29,6 +31,90 @@
     ../common/cinnamon
     ../common/sops-nix
   ];
+  
+  # Enable OpenGL
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+  
+  
+  hardware.nvidia = {
+  
+  
+    # Modesetting is required.
+    modesetting.enable = true;
+
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    # Enable this if you have graphical corruption issues or application crashes after waking
+    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+    # of just the bare essentials.
+    powerManagement.enable = false;
+
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at: 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
+    # Currently alpha-quality/buggy, so false is currently the recommended setting.
+    open = false; 
+
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
+    nvidiaSettings = true;
+  
+    prime = {
+      offload = {
+        enable = false;
+        enableOffloadCmd = false;
+      };
+      
+      sync.enable = true;
+      reverseSync.enable = false; # TODO: Use this mode when it is no longer experimental 
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+  
+  services.asusd = {
+    enable = true;
+    enableUserService = true;
+  };
+  environment.etc."asusd/asusd.ron" = {
+    text = ''
+      (
+          charge_control_end_threshold: 80,
+          panel_od: false,
+          mini_led_mode: false,
+          disable_nvidia_powerd_on_battery: true,
+          ac_command: "",
+          bat_command: "",
+          platform_policy_linked_epp: true,
+          platform_policy_on_battery: Quiet,
+          platform_policy_on_ac: Performance,
+          ppt_pl1_spl: None,
+          ppt_pl2_sppt: None,
+          ppt_fppt: None,
+          ppt_apu_sppt: None,
+          ppt_platform_sppt: None,
+          nv_dynamic_boost: None,
+          nv_temp_target: None,
+      )
+    '';
+    mode = "0644";
+  };
+  programs.rog-control-center.enable = true;
+  programs.rog-control-center.autoStart = true;
+  
 
   # Bootloader.
   # Use the systemd-boot EFI boot loader.
