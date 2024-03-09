@@ -17,9 +17,9 @@
   
     (lib.mkIf config.services.xserver.enable {
       # Configure keymap in X11
-      services.xserver = {
+      services.xserver.xkb = {
         layout = "us";
-        xkbVariant = "";
+        variant = "";
       };
     })
   ];

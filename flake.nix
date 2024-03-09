@@ -4,6 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
     # Home manager
     home-manager = {
@@ -16,6 +17,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
+    hardware.url = "github:nixos/nixos-hardware";
+    
+    geany-themes = {
+    	url = "github:geany/geany-themes";
+    	flake = false;
+    };
+    
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    # TODO: Transfert everything relathing to cuda to their own flake
     
     cuda_find_in_files4 = {
     	url = "github:CudaText-addons/cuda_find_in_files4";
@@ -38,18 +52,6 @@
     	flake = false;
     };
     
-    geany-themes = {
-    	url = "github:geany/geany-themes";
-    	flake = false;
-    };
-    
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
-    # TODO: Add any other flake you might need
-    # hardware.url = "github:nixos/nixos-hardware";
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
