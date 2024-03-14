@@ -31,6 +31,7 @@
     ../common/cinnamon
     ../common/sops-nix
     ../common/steam
+    ../common/solaar
   ];
   
   # Enable OpenGL
