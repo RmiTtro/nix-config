@@ -30,6 +30,7 @@
     ../common/users/rtetreault
     ../common/cinnamon
     ../common/sops-nix
+    ../common/steam
   ];
   
   # Enable OpenGL
