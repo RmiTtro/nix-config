@@ -1,0 +1,3 @@
+{
+  nemo = import ./nemo.nix;
+}

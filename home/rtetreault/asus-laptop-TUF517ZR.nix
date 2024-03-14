@@ -27,6 +27,7 @@
     ./features/copyq
     ./features/git
     ./features/megasync
+    ./features/megasync/nemo
     ./features/shutter
     ./features/clipboard
     ./features/mywikiserver

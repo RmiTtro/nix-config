@@ -1,10 +1,15 @@
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
   ...
 }: {
+  imports = [
+    outputs.homeManagerModules.nemo
+  ];
+
   home = {
     # xsession.enable must be at true or this won't work
     keyboard = {
@@ -28,4 +33,7 @@
     # Not necessary, this is just for it to appear in the Keyboard settings gui
     settings."org/cinnamon/settings-daemon/peripherals/keyboard".input-sources-switcher = "alt-shift";
   };
+  
+  # Override system Nemo so we can add plugins
+  programs.nemo.enable = true;
 }

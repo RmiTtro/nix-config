@@ -65,6 +65,15 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+    
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
+      "x86_64-linux"
+    ];
+    # This is a function that generates an attribute by calling a function you
+    # pass to it, with each system as an argument
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+    
     makeHostnameOption = hostname: {lib, ...}: {
       options = {
         hostname = lib.mkOption {
@@ -83,8 +92,14 @@
         ];
       };
     };
+    
   in 
   {
+    nixosModules = import ./modules/nixos;
+    homeManagerModules = import ./modules/home-manager;
+    # Your custom packages
+    # Accessible through 'nix build', 'nix shell', etc
+    packages = forAllSystems (system: import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};});
     overlays = import ./overlays { inherit inputs outputs; };
     
     # NixOS configuration entrypoint
