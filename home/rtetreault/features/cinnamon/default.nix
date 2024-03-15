@@ -32,6 +32,15 @@
     
     # Not necessary, this is just for it to appear in the Keyboard settings gui
     settings."org/cinnamon/settings-daemon/peripherals/keyboard".input-sources-switcher = "alt-shift";
+    
+    # Turn off the sounds
+    settings."org/cinnamon/sounds".login-enabled = false;
+    settings."org/cinnamon/sounds".logout-enabled = false;
+    settings."org/cinnamon/sounds".notification-enabled = false;
+    settings."org/cinnamon/sounds".plug-enabled = false;
+    settings."org/cinnamon/sounds".switch-enabled = false;
+    settings."org/cinnamon/sounds".tile-enabled = false;
+    settings."org/cinnamon/sounds".unplug-enabled = false;
   };
   
   # Override system Nemo so we can add plugins
