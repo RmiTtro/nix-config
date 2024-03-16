@@ -34,6 +34,7 @@
     ./features/keepassxc
     ./features/bash
     ./features/cinnamon
+    ./features/inputrc
   ];
 
   nixpkgs = {
