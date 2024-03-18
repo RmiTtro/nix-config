@@ -17,6 +17,7 @@
       #use sendfile = yes
       #max protocol = smb2
       # note: localhost is the ipv6 localhost ::1
+      # Make sure the ip address of the home network is in hosts allow
       hosts allow = 192.168.1. 127.0.0.1 localhost
       hosts deny = 0.0.0.0/0
       guest account = nobody

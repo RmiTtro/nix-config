@@ -70,20 +70,38 @@ in {
       sops.secrets."samba_passwords/${username}" = {};
       
       system.activationScripts = {
-        "${username}SambaAccountCreation" = {
+        "${username}SambaAccountManagement" = {
           text = let
             sambaPasswordPath = config.sops.secrets."samba_passwords/${username}".path;
-          in
-          ''
-            if [ -f ${sambaPasswordPath} ]; then
-              # Create/modify user samba account with a blank password
-              (${pkgs.coreutils-full}/bin/echo ""; ${pkgs.coreutils-full}/bin/echo "") | ${pkgs.samba}/bin/pdbedit -u ${username} -a -t 1> /dev/null
-              # Modify the user samba account to set the password using the nt-hash from the secret file
-              ${pkgs.samba}/bin/pdbedit -u ${username} -r --set-nt-hash=$(${pkgs.coreutils-full}/bin/cat ${sambaPasswordPath}) 1> /dev/null
-              # Delete the secret file, it is not needed anymore
-              rm ${sambaPasswordPath}
-            fi
-          '';
+            sambaAccountManagementScript = ''
+              export PATH="${pkgs.samba}/bin:${pkgs.coreutils-full}/bin:$PATH"
+              
+              if [ -f ${sambaPasswordPath} ]; then
+              
+                # If the user does not have a samba account
+                if ! pdbedit -u ${username} 1> /dev/null 2>&1; then
+                
+                  # Create user samba account with a blank password
+                  (echo ""; echo "") | pdbedit -u ${username} -a -t 1> /dev/null
+                  
+                  # Modify the user samba account to set the password using the nt-hash from the secret file
+                  pdbedit -u ${username} -r --set-nt-hash="$(cat ${sambaPasswordPath})" 1> /dev/null
+                
+                else # The user already has a samba account
+                
+                  CURRENT_HASH=$(pdbedit -u ${username} -w | tr ':' $'\n' | head -n 4 | tail -n 1)
+                  NEW_HASH=$(cat ${sambaPasswordPath})
+                  
+                  if [ "$CURRENT_HASH" != "$NEW_HASH" ]; then
+                    pdbedit -u ${username} -r --set-nt-hash="$NEW_HASH" 1> /dev/null
+                  fi
+                fi
+                
+                # Delete the secret file, it is not needed anymore
+                rm ${sambaPasswordPath}
+              fi
+            '';
+          in sambaAccountManagementScript;
           deps = [ "setupSecrets" ]; # Make it execute after the sops-nix activation script
         };
       };
