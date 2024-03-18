@@ -22,4 +22,21 @@
       '';
     }))
   ];
+  
+  xdg.configFile."nomacs/HomeManagerInit_ImageLounge.conf" = {
+    text = ''
+      [DisplaySettings]
+      bgColorNoMacsRGBA=4281545523
+      bgColorWidgetRGBA=2852126720
+      fontColorRGBA=4292730333
+      highlightColorRGBA=4278233855
+      iconColorRGBA=4292730333
+      themeName312=Dark-Theme.css
+    '';
+    onChange = ''
+      rm -f ${config.xdg.configHome}/nomacs/ImageLounge.conf
+      cp ${config.xdg.configHome}/nomacs/HomeManagerInit_ImageLounge.conf ${config.xdg.configHome}/nomacs/ImageLounge.conf
+      chmod u+w ${config.xdg.configHome}/nomacs/ImageLounge.conf
+    '';
+  };
 }
