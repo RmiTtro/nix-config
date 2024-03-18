@@ -20,6 +20,6 @@ in
                    // { "cudatext/settings/user.json".source = ./user.json; };
                    
   programs.bash.sessionVariables = {
-    EDITOR = "cudatext";
+    EDITOR = "cudatext -n -nh -ns -nn";
   };
 }
