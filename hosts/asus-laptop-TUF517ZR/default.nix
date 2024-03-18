@@ -32,7 +32,6 @@
     ../common/sops-nix
     ../common/steam
     ../common/solaar
-    ../common/inputrc
   ];
   
   # Enable OpenGL

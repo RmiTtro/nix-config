@@ -111,4 +111,7 @@
   "toolkit.telemetry.unifiedIsOptIn" = false;
   "toolkit.telemetry.updatePing.enabled" = false;
   "signon.rememberSignons" = false;
+  
+  # Disable annoying beep sound that play when performing a search
+  "accessibility.typeaheadfind.enablesound" = false;
 }

@@ -41,7 +41,22 @@
     settings."org/cinnamon/sounds".switch-enabled = false;
     settings."org/cinnamon/sounds".tile-enabled = false;
     settings."org/cinnamon/sounds".unplug-enabled = false;
+    
+    # Attempt at disabling annoying beeping sound made by some applications
+    # Come from:
+    #   - https://github.com/linuxmint/cinnamon/issues/5253
+    #   - https://wiki.archlinux.org/title/PC_speaker
+    settings."org/cinnamon/settings-daemon/peripherals/keyboard".bell-mode = "off";
+    settings."org/gnome/desktop/wm/preferences".audible-bell = false;
+    settings."org/cinnamon/desktop/wm/preferences".audible-bell = false;
   };
+  
+  # Attempt at disabling annoying beeping sound made by some applications
+  # Come from:
+  #   - https://wiki.archlinux.org/title/PC_speaker
+  gtk.enable = true;
+  gtk.gtk2.extraConfig = "gtk-error-bell = 0";
+  gtk.gtk3.extraConfig = { "gtk-error-bell" = 0; };
   
   # Override system Nemo so we can add plugins
   programs.nemo.enable = true;
