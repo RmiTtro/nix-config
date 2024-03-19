@@ -34,6 +34,7 @@
     ./features/keepassxc
     ./features/bash
     ./features/cinnamon
+    ./features/bookmarks-file-manager
   ];
 
   nixpkgs = {
@@ -57,13 +58,14 @@
   # Enable home-manager
   programs.home-manager.enable = true;
  
-  
-  
-
-  # TODO: Things to add
-  # steam
-  # vivaldi
-  # solaar (probably gonna wait until on real hardware )
+  bookmarks-file-manager.bookmarksSelection = [
+    "downloads"
+    "public"
+    "bookmarkBreakpoint"
+    "git"
+    "mega"
+    "homeNetworkShare"
+  ];
   
 
   # Nicely reload system units when changing configs
