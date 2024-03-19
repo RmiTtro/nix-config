@@ -27,7 +27,7 @@
   
   # This is to avertise the share
   services.samba-wsdd = {
-    enable = true;
+    enable = false;
     openFirewall = true;
   };
 }
