@@ -23,7 +23,7 @@
     }))
   ];
   
-  xdg.configFile."nomacs/HomeManagerInit_ImageLounge.conf" = {
+  xdg.configFile."nomacs/HomeManagerInit_Image Lounge.conf" = {
     text = ''
       [DisplaySettings]
       bgColorNoMacsRGBA=4281545523
@@ -34,9 +34,9 @@
       themeName312=Dark-Theme.css
     '';
     onChange = ''
-      rm -f ${config.xdg.configHome}/nomacs/ImageLounge.conf
-      cp ${config.xdg.configHome}/nomacs/HomeManagerInit_ImageLounge.conf ${config.xdg.configHome}/nomacs/ImageLounge.conf
-      chmod u+w ${config.xdg.configHome}/nomacs/ImageLounge.conf
+      rm -f "${config.xdg.configHome}/nomacs/Image Lounge.conf"
+      cp "${config.xdg.configHome}/nomacs/HomeManagerInit_Image Lounge.conf" "${config.xdg.configHome}/nomacs/Image Lounge.conf"
+      chmod u+w "${config.xdg.configHome}/nomacs/Image Lounge.conf"
     '';
   };
 }
