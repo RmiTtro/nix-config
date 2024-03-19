@@ -33,6 +33,7 @@
     ../common/steam
     ../common/solaar
     ../common/samba
+    ../common/printing
   ];
   
   # Enable OpenGL
@@ -128,9 +129,6 @@
       efiSysMountPoint = "/boot/efi";
     };
   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
