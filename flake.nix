@@ -101,6 +101,7 @@
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (system: import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};});
     overlays = import ./overlays { inherit inputs outputs; };
+    lib = import ./lib { inherit (nixpkgs) lib; };
     
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'

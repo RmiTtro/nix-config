@@ -1,10 +1,12 @@
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
   ...
-}: {
+}: 
+{
   home.packages = with pkgs; [
     # Done this way in order to be able to install the plugins
     (nomacs.overrideAttrs(finalAttrs: previousAttrs: {
@@ -23,7 +25,8 @@
     }))
   ];
   
-  xdg.configFile."nomacs/HomeManagerInit_Image Lounge.conf" = {
+} // outputs.lib.addCopyOnChange config {
+  xdg.configFile."nomacs/Image Lounge.conf" = {
     text = ''
       [DisplaySettings]
       bgColorNoMacsRGBA=4281545523
@@ -32,11 +35,6 @@
       highlightColorRGBA=4278233855
       iconColorRGBA=4292730333
       themeName312=Dark-Theme.css
-    '';
-    onChange = ''
-      rm -f "${config.xdg.configHome}/nomacs/Image Lounge.conf"
-      cp "${config.xdg.configHome}/nomacs/HomeManagerInit_Image Lounge.conf" "${config.xdg.configHome}/nomacs/Image Lounge.conf"
-      chmod u+w "${config.xdg.configHome}/nomacs/Image Lounge.conf"
     '';
   };
 }
