@@ -5,17 +5,17 @@
   pkgs,
   ...
 }: let
-inherit (lib) mkEnableOption mkOption mkIf mkMerge types literalExpression lists;
-inherit (lib.attrsets) attrVals hasAttrByPath;
-cfg = config.bookmarks-file-manager;
-availablesBookmarks = {
-  downloads = "file:///home/rtetreault/Downloads Downloads";
-  public = "file:///home/rtetreault/Public Public";
-  mega = "file:///home/rtetreault/MEGA MEGA";
-  git = "file:///home/rtetreault/git git";
-  homeNetworkShare = "smb://desktop-lvv7t9v/public/ Home network share";
-  bookmarkBreakpoint = "";
-};
+  inherit (lib) mkEnableOption mkOption mkIf mkMerge types literalExpression lists;
+  inherit (lib.attrsets) attrVals hasAttrByPath;
+  cfg = config.bookmarks-file-manager;
+  availablesBookmarks = {
+    downloads = "file:///home/rtetreault/Downloads Downloads";
+    public = "file:///home/rtetreault/Public Public";
+    mega = "file:///home/rtetreault/MEGA MEGA";
+    git = "file:///home/rtetreault/git git";
+    homeNetworkShare = "smb://desktop-lvv7t9v/public/ Home network share";
+    bookmarkBreakpoint = "";
+  };
 in
 {
   options.bookmarks-file-manager = {
