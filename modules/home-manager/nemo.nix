@@ -34,6 +34,8 @@ in
       home.packages = [ 
         (pkgs.cinnamon.nemo-with-extensions.override { extensions = cfg.plugins; })  
       ];
+      
+      xdg.mimeApps.defaultApplications = { "inode/directory" = [ "nemo.desktop" ]; };
     })
     
     (mkIf (cfg.enable && config.gtk.enable) {
