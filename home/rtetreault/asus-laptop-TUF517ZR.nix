@@ -24,6 +24,7 @@
     ./features/nomacs
     ./features/firefox/standardProfile
     ./features/firefox/secureProfile
+    ./features/firefox/tiddlywikiProfile
     ./features/copyq
     ./features/git
     ./features/megasync
