@@ -5,10 +5,7 @@
   pkgs,
   ...
 }: {
-  home.file."Desktop/Secure Firefox.desktop" = {
-    source = ./${"Secure Firefox"}.desktop;
-    executable = true;
-  };
+  home.file = import ../createSpecificProfileDesktopIcon.nix {inherit pkgs; name="Secure Firefox"; profile = "SecureProfile";};
 
   programs.firefox = {
     enable = true;
