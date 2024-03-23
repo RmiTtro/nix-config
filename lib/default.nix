@@ -4,12 +4,13 @@
   # The added onChange attribute have shell commands that create a writable copy of the linked file created by home manager. That copy has the specified name without the prefix.
   # This is useful for cases when you want program to be able to modify their configs files.
   addCopyOnChange = config: fileConfigs: let 
-    inherit (lib.attrsets) mapAttrs mapAttrs' nameValuePair;
+    inherit (lib.attrsets) mapAttrs mapAttrs' nameValuePair optionalAttrs;
     inherit (lib.strings) splitString concatStringsSep;
     inherit (lib.lists) last init;
     addOnChange = basePath: (
       name: value: let
-        filePath = name;
+        isTarget = "target" ? value;
+        filePath = if isTarget then value.target else name;
         splitedFilePath = splitString "/" filePath;
         fileName = last splitedFilePath;
         initFileName = "HomeManagerInit_" + fileName;
@@ -18,14 +19,18 @@
       if (fileName == "") || (value ? "onChange") then
         nameValuePair name value
       else nameValuePair
-        (initFilePath)
-        (value // {
-          onChange = ''
-            rm -f "${basePath}/${filePath}"
-            cp "${basePath}/${initFilePath}" "${basePath}/${filePath}"
-            chmod u+w "${basePath}/${filePath}"
-          '';
-        })
+        (if isTarget then name else initFilePath)
+        (
+          value 
+          // {
+            onChange = ''
+              rm -f '${basePath}/${filePath}'
+              cp '${basePath}/${initFilePath}' '${basePath}/${filePath}'
+              chmod u+w '${basePath}/${filePath}'
+            '';
+          } 
+          // (optionalAttrs isTarget {target=initFilePath;})
+        )
     );
     in
     mapAttrs (name: value:
