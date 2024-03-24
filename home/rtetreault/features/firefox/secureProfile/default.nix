@@ -17,10 +17,10 @@
       search.force = true;
       search.default = "DuckDuckGo";
 
-      settings = {
-        # "browser.startup.page" = 3; # Allow the browser to remmember the tabs when closed
+      settings = (import ../commonSettings.nix) // {
+        "browser.startup.page" = 0; # Start on about:blank
         "browser.privatebrowsing.autostart" = true; # Prevent the browser from remmembering histo
-      } // (import ../commonSettings.nix);
+      };
 
       userChrome = ''                         
         /* some css */                        

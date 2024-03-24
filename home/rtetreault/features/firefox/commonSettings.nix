@@ -7,6 +7,28 @@
   "browser.newtabpage.activity-stream.showSponsored" = false;
   "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
   
+  # Don't show an import button in the toolbar
+  # The true value is to trick the browser into thinking it already added it
+  "browser.bookmarks.addedImportButton" = true;
+  
+  # Control the toolbar visibility
+  # Possibles values:
+  #   - always
+  #   - never
+  #   - newtab
+  "browser.toolbars.bookmarks.visibility" = "never";
+  
+  # Control what the browser show when starting:
+  # Possibles values:
+  #   - 0 : blank page (about:blank)
+  #   - 1 : web page defined in Browser.startup.homepage (default)
+  #   - 2 : last visited page
+  #   - 3 : resume browser session
+  "browser.startup.page" = 3;
+  
+  # Set to true to disable histo
+  "browser.privatebrowsing.autostart" = false; 
+  
   "app.normandy.api_url" = "";
   "app.normandy.enabled" = false;
   "app.shield.optoutstudies.enabled" = false;

@@ -43,10 +43,8 @@
         */
       ];
 
-      settings = {
-        "browser.startup.page" = 3; # Allow the browser to remmember the tabs when closed
-        # "browser.privatebrowsing.autostart" = true; # Prevent the browser from remmembering histo
-      } // (import ../commonSettings.nix);
+      settings = (import ../commonSettings.nix) // {
+      };
 
       userChrome = ''                         
         /* some css */                        

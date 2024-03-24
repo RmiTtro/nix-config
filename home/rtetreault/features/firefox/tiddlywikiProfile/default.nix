@@ -17,20 +17,25 @@ lib.mkMerge [
         isDefault = false;
         search.force = true;
         search.default = "DuckDuckGo";
-  
-        bookmarks = (
-          []
-          ++ (
-            lib.lists.optional isMegasync {
-              name = "myWikis";
-              url = "file://${config.home.homeDirectory}/Downloads/myWikis/";
-            }
-          )
-        );
-  
-        settings = {
-          "browser.startup.page" = 3; # Allow the browser to remmember the tabs when closed
-        } // (import ../commonSettings.nix);
+        bookmarks = [
+          {
+            name = "Bookmarks Toolbar";
+            toolbar = true;
+            bookmarks = (
+              []
+              ++ (
+                lib.lists.optional isMegasync {
+                  name = "myWikis";
+                  url = "file://${config.home.homeDirectory}/Downloads/myWikis/";
+                }
+              )
+            );
+          }
+        ];
+
+        settings = (import ../commonSettings.nix) // {
+          "browser.toolbars.bookmarks.visibility" = "newtab";
+        };
   
         userChrome = ''                         
           /* some css */                        
