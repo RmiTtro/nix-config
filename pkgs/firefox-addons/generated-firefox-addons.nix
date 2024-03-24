@@ -1,4 +1,8 @@
 # Generated using https://git.sr.ht/~rycee/mozilla-addons-to-nix/
+# To update:
+#   1. Modify addons.json
+#   2. Run the command: nix run git+"https://git.sr.ht/~rycee/mozilla-addons-to-nix/" addons.json /dev/stdout
+#   3. Copy and paste the result of the command here
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
     "file-backups" = buildFirefoxXpiAddon {

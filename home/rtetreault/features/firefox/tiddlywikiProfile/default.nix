@@ -44,6 +44,7 @@ lib.mkMerge [
         extensions = with inputs.firefox-addons.packages."${pkgs.system}"; with pkgs.firefox-addons; [
           file-backups
           webrequest-rules
+          violentmonkey
         ];
       };
     };
