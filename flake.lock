@@ -48,6 +48,38 @@
         "type": "github"
       }
     },
+    "cuda_fmt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693066346,
+        "narHash": "sha256-N1VtMaKDp6V2hTpqVTt0RugJ+sF6GPD1gDjW3jGfoCA=",
+        "owner": "CudaText-addons",
+        "repo": "cuda_fmt",
+        "rev": "ae26d6528d9f4401ceb299ef4ab2de3d51a58b8e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CudaText-addons",
+        "repo": "cuda_fmt",
+        "type": "github"
+      }
+    },
+    "cuda_fmt_js": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693039910,
+        "narHash": "sha256-TzRQK9mLgWX3n8Me98lqFlM8c82FLF1PKJeIyOnLriI=",
+        "owner": "CudaText-addons",
+        "repo": "cuda_fmt_js",
+        "rev": "046c96378ba3e86ce75fbdd34c15113c28320c31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CudaText-addons",
+        "repo": "cuda_fmt_js",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -174,6 +206,8 @@
         "cudaTheme_darcula": "cudaTheme_darcula",
         "cuda_differ": "cuda_differ",
         "cuda_find_in_files4": "cuda_find_in_files4",
+        "cuda_fmt": "cuda_fmt",
+        "cuda_fmt_js": "cuda_fmt_js",
         "firefox-addons": "firefox-addons",
         "geany-themes": "geany-themes",
         "hardware": "hardware",

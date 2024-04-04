@@ -41,6 +41,16 @@
       flake = false;
     };
     
+    cuda_fmt = {
+      url = "github:CudaText-addons/cuda_fmt";
+      flake = false;
+    };
+    
+    cuda_fmt_js = {
+      url = "github:CudaText-addons/cuda_fmt_js";
+      flake = false;
+    };
+    
     # Does not work because of https://github.com/NixOS/nix/issues/7083
     #cudaTheme_dracula = {
     #	url = "file+https://sourceforge.net/projects/cudatext/files/addons/themes/theme.Dracula.zip";
