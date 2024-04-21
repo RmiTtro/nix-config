@@ -15,9 +15,10 @@
   
   packagesAvailablesForPyp = with pkgs.python3Packages; [ pipetools ];
   
-  pyp = pkgs.python3Packages.pyp.overridePythonAttrs(old: rec {
-    propagatedBuildInputs = old.propagatedBuildInputs ++ packagesAvailablesForPyp;
+  pyp = pkgs.pyp.overridePythonAttrs(old: rec {
+    propagatedBuildInputs = packagesAvailablesForPyp;
   });
+  
 in 
 {
   home.packages = with pkgs; [

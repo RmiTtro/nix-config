@@ -14,7 +14,7 @@
           owner = "nomacs";
           repo = "nomacs";
           rev = finalAttrs.version;
-          hash = "sha256-rUREcaJ1NmuJaApg8epR+tpxusgyXhWAEE0SuIjwjsU=";
+          hash = "sha256-cAb6vTVSHbWZm5c354/odEGDCmRpuRMURF96zlCfS7Y=";
           fetchSubmodules = true; # Necessary to install the plugins
         };
         
