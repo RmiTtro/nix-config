@@ -36,6 +36,7 @@
     ./features/bash
     ./features/cinnamon
     ./features/bookmarks-file-manager
+    ./features/vscode
   ];
 
   nixpkgs = {
