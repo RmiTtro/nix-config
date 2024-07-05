@@ -19,6 +19,7 @@
     #inputs.hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./hardware-configuration.nix
+    ./specialisation.nix
     ../common/nixos
     ../common/nixpkgs
     ../common/locale
