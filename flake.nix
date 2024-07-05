@@ -5,6 +5,8 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-f89c670.url = "github:nixos/nixpkgs/f89c670a01ba9b5e2c29c2f692fd654dfab686b5";
+
 
     # Home manager
     home-manager = {
@@ -73,6 +75,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-f89c670,
     home-manager,
     ...
   } @ inputs: let
@@ -96,7 +99,12 @@
     };
     makeNixosSystem = hostname: {
       "${hostname}" = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {
+          inherit inputs outputs;
+          pkgs-f89c670 = import nixpkgs-f89c670 {
+            system = "x86_64-linux";
+          };
+        };
         # > Our main nixos configuration file <
         modules = [
           (makeHostnameOption hostname)

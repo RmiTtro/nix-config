@@ -6,6 +6,7 @@
   lib,
   config,
   pkgs,
+  pkgs-f89c670,
   ...
 }: {
   # You can import other NixOS modules here
@@ -39,14 +40,14 @@
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
   };
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
   
-  
+  # Make the generated xorg.conf file accessible in /etc/X11
+  services.xserver.exportConfiguration = true;
+
   hardware.nvidia = {
   
   
@@ -84,14 +85,19 @@
       
       sync.enable = true;
       reverseSync.enable = false; # TODO: Use this mode when it is no longer experimental 
+      allowExternalGpu = false;
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
+
+    # Allow to chose a specific driver version
+    # package = config.boot.kernelPackages.nvidiaPackages.production;
   };
-  
+
   services.asusd = {
     enable = true;
     enableUserService = true;
+    package = pkgs-f89c670.asusctl;
   };
   environment.etc."asusd/asusd.ron" = {
     text = ''
