@@ -36,6 +36,7 @@
     ../common/solaar
     ../common/samba
     ../common/printing
+    ../common/opentablet
   ];
   
   # Enable OpenGL
