@@ -15,8 +15,7 @@
 {
   # You can import other home-manager modules here
   imports = [
-    # If you want to use home-manager modules from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModule
+    outputs.homeManagerModules.preferredApplications
 
     ./features/cudatext
     ./features/geany
@@ -38,6 +37,7 @@
     ./features/bookmarks-file-manager
     ./features/vscode
     ./features/krita
+    ./features/vlc
   ];
 
   nixpkgs = {
@@ -70,7 +70,16 @@
     "homeNetworkShare"
   ];
   
-  xdg.mimeApps.enable = true;
+  preferred.applications = {
+    enable = true;
+    music = "vlc";
+    video = "vlc";
+    photos = "org.nomacs.ImageLounge";
+    pdf = "xreader";
+    sourceCode = "cudatext";
+    fileManager = "nemo";
+    plainText = "cudatext";
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
