@@ -37,6 +37,7 @@
     ../common/samba
     ../common/printing
     ../common/opentablet
+    ../common/searx
   ];
   
   # Enable OpenGL

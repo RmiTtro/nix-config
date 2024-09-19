@@ -27,10 +27,29 @@
           definedAliases = [ "@np" ];
         };
         */
+
+        "SearXNG" = { 
+          urls = [{
+            template = "http://localhost:8888/search";
+            params = [
+              { name = "q"; value = "{searchTerms}"; }
+              { name = "category_general"; value = ""; }
+              { name = "language"; value = "auto"; }
+              { name = "time_range"; value = ""; }
+              { name = "safesearch"; value = "2"; }
+              { name = "theme"; value = "simple"; }
+            ];
+          }];
+
+          icon = "${pkgs.searxng}/share/static/themes/simple/img/favicon.svg";
+          definedAliases = [ "@searx" "@searxng" ];
+        };
       };
       search.force = true;
       search.default = "DuckDuckGo";
 
+      # Not using this since it will delete all my existing bookmarks that are synced in Firefox sync
+      # Will have to sort through my existing bookmarks and add them here
       bookmarks = [
         /*
         # Exemple to add a bookmark
@@ -39,6 +58,21 @@
           tags = [ "wiki" ];
           keyword = "wiki";
           url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+        }
+        */
+
+
+        /*
+        {
+          name = "Bangs overrides";
+          bookmarks = [
+            {
+              name = "NixOS options";
+              url = "https://search.nixos.org/options?channel=unstable&query=%s";
+              tags = [ "nix" "bangs" ];
+              keyword = "!nixopt";
+            }
+          ];
         }
         */
       ];
