@@ -66,6 +66,10 @@
     	flake = false;
     };
     
+    cudatext-lexers = {
+      url = "github:Alexey-T/CudaText-lexers";
+      flake = false;
+    };
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!

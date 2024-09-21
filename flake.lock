@@ -80,6 +80,22 @@
         "type": "github"
       }
     },
+    "cudatext-lexers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726568451,
+        "narHash": "sha256-yfd5zUHBAWhBX4X+qY2QDQDiO3k//3QMGacfgqcpECI=",
+        "owner": "Alexey-T",
+        "repo": "CudaText-lexers",
+        "rev": "a45fe98ea1525150ab9c4dee2fc8c3ea16590b5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Alexey-T",
+        "repo": "CudaText-lexers",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -294,6 +310,7 @@
         "cuda_find_in_files4": "cuda_find_in_files4",
         "cuda_fmt": "cuda_fmt",
         "cuda_fmt_js": "cuda_fmt_js",
+        "cudatext-lexers": "cudatext-lexers",
         "firefox-addons": "firefox-addons",
         "geany-themes": "geany-themes",
         "hardware": "hardware",
