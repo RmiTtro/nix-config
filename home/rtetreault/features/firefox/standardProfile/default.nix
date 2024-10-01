@@ -11,7 +11,7 @@
     profiles.StandardProfile = {
       id = 0; # Must be different for each profile
       isDefault = true;
-      search.engines = {
+      search.engines = (import ../custom-search-engines/searxng.nix pkgs) // {
         /*
         # Exemple to add a search engine
         "Nix Packages" = {
@@ -27,23 +27,6 @@
           definedAliases = [ "@np" ];
         };
         */
-
-        "SearXNG" = { 
-          urls = [{
-            template = "http://localhost:8888/search";
-            params = [
-              { name = "q"; value = "{searchTerms}"; }
-              { name = "category_general"; value = ""; }
-              { name = "language"; value = "auto"; }
-              { name = "time_range"; value = ""; }
-              { name = "safesearch"; value = "2"; }
-              { name = "theme"; value = "simple"; }
-            ];
-          }];
-
-          icon = "${pkgs.searxng}/share/static/themes/simple/img/favicon.svg";
-          definedAliases = [ "@searx" "@searxng" ];
-        };
       };
       search.force = true;
       search.default = "DuckDuckGo";

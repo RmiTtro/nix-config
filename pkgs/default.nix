@@ -3,6 +3,8 @@
   # Personal scripts
   mywikiserver = pkgs.callPackage ./mywikiserver { }; 
   clipboard = pkgs.callPackage ./clipboard { };
+  firefoxExecForVopono = pkgs.callPackage ./firefoxExecForVopono { };
+  firefox-vpn = pkgs.callPackage ./firefox-vpn { inherit firefoxExecForVopono; };
   
   firefox-addons = pkgs.callPackage ./firefox-addons { };
   

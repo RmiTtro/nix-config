@@ -24,6 +24,7 @@
     ./features/firefox/standardProfile
     ./features/firefox/secureProfile
     ./features/firefox/tiddlywikiProfile
+    ./features/firefox/vpnProfile
     ./features/copyq
     ./features/git
     ./features/megasync
@@ -38,6 +39,7 @@
     ./features/vscode
     ./features/krita
     ./features/vlc
+    ./features/vopono
   ];
 
   nixpkgs = {

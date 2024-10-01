@@ -39,6 +39,7 @@
     ../common/printing
     ../common/opentablet
     ../common/searx
+    ../common/firejail
   ];
   
   # Enable OpenGL
