@@ -5,9 +5,11 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ../firefox.nix
+  ];
+
   programs.firefox = {
-    enable = true;
-    
     profiles.StandardProfile = {
       id = 0; # Must be different for each profile
       isDefault = true;

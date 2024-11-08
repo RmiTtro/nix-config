@@ -5,11 +5,13 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ../firefox.nix
+  ];
+
   home.file = import ../createSpecificProfileDesktopIcon.nix {inherit pkgs; name="Secure Firefox"; profile = "SecureProfile";};
 
   programs.firefox = {
-    enable = true;
-    
     profiles.SecureProfile = {
       id = 1; # Must be different for each profile
       isDefault = false;

@@ -5,9 +5,11 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ../firefox.nix
+  ];
+
   programs.firefox = {
-    enable = true;
-    
     profiles.VPNProfile = {
       id = 3; # Must be different for each profile
       isDefault = false;
