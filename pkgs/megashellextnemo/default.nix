@@ -5,7 +5,7 @@
 , qtbase
 , qttools
 , qmake
-, cinnamon
+, nemo
 , gtk3
 }:
 mkDerivation rec {
@@ -26,13 +26,13 @@ mkDerivation rec {
   ];
   buildInputs = [
     qtbase
-    cinnamon.nemo
+    nemo
     gtk3
   ];
 
   enableParallelBuilding = true;
 
-  PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/${cinnamon.nemo.extensiondir}";
+  PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/${nemo.extensiondir}";
   DESKTOP_DESTDIR="${placeholder "out"}";
 
 

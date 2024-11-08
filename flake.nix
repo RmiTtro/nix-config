@@ -22,8 +22,8 @@
     hardware.url = "github:nixos/nixos-hardware";
     
     geany-themes = {
-    	url = "github:geany/geany-themes";
-    	flake = false;
+      url = "github:geany/geany-themes";
+      flake = false;
     };
     
     firefox-addons = {
@@ -36,8 +36,8 @@
     # TODO: Transfert everything relathing to cuda to their own flake
     
     cuda_find_in_files4 = {
-    	url = "github:CudaText-addons/cuda_find_in_files4";
-    	flake = false;
+      url = "github:CudaText-addons/cuda_find_in_files4";
+      flake = false;
     };
     
     cuda_differ = {
@@ -57,13 +57,13 @@
     
     # Does not work because of https://github.com/NixOS/nix/issues/7083
     #cudaTheme_dracula = {
-    #	url = "file+https://sourceforge.net/projects/cudatext/files/addons/themes/theme.Dracula.zip";
-    #	flake = false;
+    # url = "file+https://sourceforge.net/projects/cudatext/files/addons/themes/theme.Dracula.zip";
+    # flake = false;
     #};
 
     cudaTheme_darcula = {
-    	url = "github:CudaText-addons/cudatext-theme-darcula";
-    	flake = false;
+      url = "github:CudaText-addons/cudatext-theme-darcula";
+      flake = false;
     };
     
     cudatext-lexers = {

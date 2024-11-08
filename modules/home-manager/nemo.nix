@@ -32,7 +32,7 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       home.packages = [ 
-        (pkgs.cinnamon.nemo-with-extensions.override { extensions = cfg.plugins; })  
+        (pkgs.nemo-with-extensions.override { extensions = cfg.plugins; })  
       ];
     })
     
