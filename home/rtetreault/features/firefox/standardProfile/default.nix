@@ -71,6 +71,7 @@
         darkreader
         ublock-origin
         multi-account-containers
+        violentmonkey
       ];
     };
   };
