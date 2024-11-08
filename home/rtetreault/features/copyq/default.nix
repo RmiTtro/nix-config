@@ -26,4 +26,12 @@ in
   );
   
   xdg.configFile."copyq/copyq-commands.ini".source = ./copyq-commands.ini;
+
+  xdg.configFile."copyq/copyq.conf".text = ''
+    [Options]
+    activate_pastes=false
+    close_on_unfocus=false
+    tabs=&clipboard
+    tray_item_paste=false
+  '';
 }
