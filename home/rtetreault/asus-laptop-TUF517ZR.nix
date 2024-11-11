@@ -34,6 +34,8 @@
     ./features/mywikiserver
     ./features/keepassxc
     ./features/bash
+    ./features/fonts
+    ./features/powerline-go
     ./features/cinnamon
     ./features/bookmarks-file-manager
     ./features/vscode
