@@ -17,6 +17,7 @@
   programs.vscode.userSettings = {
     "workbench.colorTheme" = "Default Dark Modern";
     "telemetry.telemetryLevel" = "off";
+    "files.hotExit" = "off";
   };
 
   programs.vscode.extensions = with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
