@@ -40,6 +40,7 @@
     ../common/opentablet
     ../common/searx
     ../common/firejail
+    ../common/podman
   ];
   
   # Enable OpenGL
@@ -98,6 +99,9 @@
     # Allow to chose a specific driver version
     # package = config.boot.kernelPackages.nvidiaPackages.production;
   };
+
+  # Allow nvidia gpu to be used in container like podman or docker
+  hardware.nvidia-container-toolkit.enable = true;
 
   services.asusd = {
     enable = true;
