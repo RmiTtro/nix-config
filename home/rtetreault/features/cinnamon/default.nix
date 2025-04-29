@@ -33,6 +33,10 @@
     # Not necessary, this is just for it to appear in the Keyboard settings gui
     settings."org/cinnamon/settings-daemon/peripherals/keyboard".input-sources-switcher = "alt-shift";
     
+    # This match Windows > Behavior > Moving and Resizing Windows > Special key to move and resize windows
+    settings."org/cinnamon/desktop/wm/preferences".mouse-button-modifier = "<Super>";
+    settings."org/gnome/desktop/wm/preferences".mouse-button-modifier = "<Super>";
+
     # Turn off the sounds
     settings."org/cinnamon/sounds".login-enabled = false;
     settings."org/cinnamon/sounds".logout-enabled = false;
