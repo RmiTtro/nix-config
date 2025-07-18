@@ -41,6 +41,7 @@
     ../common/searx
     ../common/firejail
     ../common/podman
+    ../common/zsa
   ];
   
   # Enable OpenGL
