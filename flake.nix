@@ -101,18 +101,27 @@
         };
       };
     };
+
+    # We create a specific module instead of using specialArgs to avoid having to manually specify the system
+    makeSpecificNixPkgsVersionModule = specificNixPkgsVersionName: {pkgs, ...}: 
+      let
+        specificNixPkgsVersionValue = inputs."${specificNixPkgsVersionName}";
+        specificPkgsVersionName = nixpkgs.lib.strings.replaceStrings ["nix"] [""] specificNixPkgsVersionName;
+      in
+      {
+        _module.args."${specificPkgsVersionName}" = import specificNixPkgsVersionValue { system = pkgs.system; };
+      };
+
     makeNixosSystem = hostname: {
       "${hostname}" = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          pkgs-f89c670 = import nixpkgs-f89c670 {
-            system = "x86_64-linux";
-          };
         };
         # > Our main nixos configuration file <
         modules = [
           (makeHostnameOption hostname)
           ./hosts/${hostname}
+          (makeSpecificNixPkgsVersionModule "nixpkgs-f89c670")
         ];
       };
     };
