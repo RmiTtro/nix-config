@@ -10,13 +10,13 @@
 }:
 mkDerivation rec {
   pname = "megashellextnemo";
-  version = "4.9.0.0";
+  version = "5.12.0.1";
 
   src = fetchFromGitHub {
     owner = "meganz";
     repo = "MEGAsync";
     rev = "v${version}_Linux";
-    sha256 = "sha256-s0E8kJ4PJmhaxVcWPCyCk/KbcX4V3IESdZhSosPlZuM=";
+    sha256 = "sha256-SEr9pP0tMT5ZLCelZAT4Kxf5L3Dj/lIB35587jE8CXg=";
   };
 
   nativeBuildInputs = [

@@ -72,6 +72,7 @@ in {
       systemd.services."${username}SambaAccountManagement" = {
         description = "Create/modify the samba account for the user";
         wantedBy = [ "multi-user.target" ];
+        wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
         script = let 
           sambaPasswordPath = config.sops.secrets."samba_passwords/${username}".path;

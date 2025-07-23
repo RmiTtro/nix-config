@@ -7,23 +7,7 @@
   ...
 }: lib.mkMerge [
   {
-    home.packages = with pkgs; [
-      # Done this way in order to be able to install the plugins
-      (nomacs.overrideAttrs(finalAttrs: previousAttrs: {
-        src = fetchFromGitHub {
-          owner = "nomacs";
-          repo = "nomacs";
-          rev = finalAttrs.version;
-          hash = "sha256-cAb6vTVSHbWZm5c354/odEGDCmRpuRMURF96zlCfS7Y=";
-          fetchSubmodules = true; # Necessary to install the plugins
-        };
-        
-        postInstall =  ''
-          ${previousAttrs.postInstall}
-          ln -s $out/lib/nomacs-plugins $out/bin/plugins
-        '';
-      }))
-    ];
+    home.packages = with pkgs; [ nomacs ];
   } 
 
   (outputs.lib.addCopyOnChange config {

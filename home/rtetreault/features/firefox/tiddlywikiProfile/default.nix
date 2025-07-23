@@ -18,22 +18,25 @@ in {
           id = 2; # Must be different for each profile
           isDefault = false;
           search.force = true;
-          search.default = "DuckDuckGo";
-          bookmarks = [
-            {
-              name = "Bookmarks Toolbar";
-              toolbar = true;
-              bookmarks = (
-                []
-                ++ (
-                  lib.lists.optional isMegasync {
-                    name = "myWikis";
-                    url = "file://${config.home.homeDirectory}/Downloads/myWikis/";
-                  }
-                )
-              );
-            }
-          ];
+          search.default = "ddg";
+          bookmarks = {
+            force = true;
+            settings = [
+              {
+                name = "Bookmarks Toolbar";
+                toolbar = true;
+                bookmarks = (
+                  []
+                  ++ (
+                    lib.lists.optional isMegasync {
+                      name = "myWikis";
+                      url = "file://${config.home.homeDirectory}/Downloads/myWikis/";
+                    }
+                  )
+                );
+              }
+            ];
+          };
 
           settings = (import ../commonSettings.nix) // {
             "browser.toolbars.bookmarks.visibility" = "newtab";
@@ -43,7 +46,8 @@ in {
             /* some css */                        
           '';                                      
     
-          extensions = with inputs.firefox-addons.packages."${pkgs.system}"; with pkgs.firefox-addons; [
+          # TODO: It is now possible to also declare the settings of each extension, need to see if this is needed here
+          extensions.packages = with inputs.firefox-addons.packages."${pkgs.system}"; with pkgs.firefox-addons; [
             file-backups
             webrequest-rules
             violentmonkey

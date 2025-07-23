@@ -17,7 +17,7 @@
       isDefault = false;
  
       search.force = true;
-      search.default = "DuckDuckGo";
+      search.default = "ddg";
 
       settings = (import ../commonSettings.nix) // {
         "browser.startup.page" = 0; # Start on about:blank

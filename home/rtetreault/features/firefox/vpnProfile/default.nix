@@ -17,7 +17,7 @@
       search.engines = (import ../custom-search-engines/searxng.nix pkgs) // { };
 
       search.force = true;
-      search.default = "DuckDuckGo";
+      search.default = "ddg";
 
       settings = (import ../commonSettings.nix) // { };
 
@@ -25,7 +25,8 @@
         /* some css */                        
       '';
 
-      extensions = with inputs.firefox-addons.packages."${pkgs.system}"; [
+      # TODO: It is now possible to also declare the settings of each extension, need to see if this is needed here
+      extensions.packages = with inputs.firefox-addons.packages."${pkgs.system}"; [
         darkreader
         ublock-origin
       ];  

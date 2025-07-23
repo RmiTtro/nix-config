@@ -5,14 +5,6 @@
   pkgs,
   ...
 }: let 
-  # pipetools is not part of nixpkgs, so I have to implement it myself
-  pipetools = with pkgs; with python3Packages; callPackage ./pipetools.nix {
-    buildPythonPackage = buildPythonPackage;
-    pytestCheckHook = pytestCheckHook;
-    pytest-cov = pytest-cov;
-    setuptools = setuptools;
-  };
-  
   packagesAvailablesForPyp = with pkgs.python3Packages; [ pipetools ];
   
   pyp = pkgs.pyp.overridePythonAttrs(old: rec {

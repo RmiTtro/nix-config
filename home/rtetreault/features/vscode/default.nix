@@ -14,13 +14,13 @@
 }: {
   programs.vscode.enable = true;
 
-  programs.vscode.userSettings = {
+  programs.vscode.profiles.default.userSettings = {
     "workbench.colorTheme" = "Default Dark Modern";
     "telemetry.telemetryLevel" = "off";
     "files.hotExit" = "off";
   };
 
-  programs.vscode.extensions = with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
+  programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
     jnoortheen.nix-ide
   ];
 }
