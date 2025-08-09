@@ -7,6 +7,10 @@
     #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-f89c670.url = "github:nixos/nixpkgs/f89c670a01ba9b5e2c29c2f692fd654dfab686b5";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Home manager
     home-manager = {
@@ -18,6 +22,8 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    impermanence.url = "github:nix-community/impermanence";
     
     hardware.url = "github:nixos/nixos-hardware";
     
@@ -112,7 +118,7 @@
         _module.args."${specificPkgsVersionName}" = import specificNixPkgsVersionValue { system = pkgs.system; };
       };
 
-    makeNixosSystem = hostname: {
+    makeNixosSystem = {hostname, additionalModules ? []}: {
       "${hostname}" = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
@@ -122,7 +128,7 @@
           (makeHostnameOption hostname)
           ./hosts/${hostname}
           (makeSpecificNixPkgsVersionModule "nixpkgs-f89c670")
-        ];
+        ] ++ additionalModules;
       };
     };
     
@@ -138,7 +144,8 @@
     
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = {}
-      // makeNixosSystem "asus-laptop-TUF517ZR";
+    nixosConfigurations = nixpkgs.lib.mergeAttrsList [
+      (makeNixosSystem { hostname = "asus-laptop-TUF517ZR"; })
+    ];
   };
 }

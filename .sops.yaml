@@ -1,7 +1,19 @@
 keys:
-  - &primary age1r5vz82rwgvvw23m5ptek3z228eczfvqfcaf35qfqjfarzw6wm97q6k0dew
+  - &users:
+    - &rtetreault age1r5vz82rwgvvw23m5ptek3z228eczfvqfcaf35qfqjfarzw6wm97q6k0dew
+  - &hosts:
+    - &asus-laptop-TUF517ZR age1dnz6kxxwduzp4ychg857exg3wfptt4ya4ns6n524xy9fjnltw5mqye30wr
 creation_rules:
-  - path_regex: secrets/secrets.yaml$
+  - path_regex: hosts/common/secrets.yaml$
     key_groups:
     - age:
-      - *primary
+      - *asus-laptop-TUF517ZR
+      - *rtetreault
+  - path_regex: home/rtetreault/secrets.yaml$
+    key_groups:
+    - age:
+      - *rtetreault
+  - path_regex: home/rtetreault/features/keepassxc/RT_SKULL.key$
+    key_groups:
+    - age:
+      - *rtetreault

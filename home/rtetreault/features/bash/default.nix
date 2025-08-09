@@ -14,4 +14,10 @@
   };
 
   programs.bash.enable = true;
+
+  permanenceHomeWrap = {
+    directories = [
+      ".local/share/direnv"
+    ];
+  };
 }

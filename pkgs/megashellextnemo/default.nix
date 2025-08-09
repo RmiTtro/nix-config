@@ -10,7 +10,7 @@
 }:
 mkDerivation rec {
   pname = "megashellextnemo";
-  version = "5.12.0.1";
+  version = "5.14.0.2";
 
   src = fetchFromGitHub {
     owner = "meganz";
@@ -30,15 +30,21 @@ mkDerivation rec {
     gtk3
   ];
 
+  prePatch = ''
+    cd src/MEGAShellExtNemo
+  '';
+
+  # This fix is needed since the path represented by DESKTOP_DESTDIR is already part of the path represented by EXTENSIONS_PATH
+  # We are basically putting it back to how it was before
+  # Apparently they added the DESKTOP_DESTDIR to the target path to fix some bug, but in our case this create some issues
+  postPatch = ''
+    substituteInPlace MEGAShellExtNemo.pro --replace-fail 'target.path = $${DESKTOP_DESTDIR}$${EXTENSIONS_PATH}' 'target.path = $${EXTENSIONS_PATH}'
+  '';
+
   enableParallelBuilding = true;
 
   PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/${nemo.extensiondir}";
   DESKTOP_DESTDIR="${placeholder "out"}";
-
-
-  preConfigure = ''
-    cd src/MEGAShellExtNemo
-  '';
 
   meta = with lib; {
     description =

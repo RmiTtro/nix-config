@@ -5,6 +5,19 @@
 #   3. Copy and paste the result of the command here
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
+    "canadian-english-dictionary" = buildFirefoxXpiAddon {
+      pname = "canadian-english-dictionary";
+      version = "3.1.3";
+      addonId = "en-CA@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3819420/canadian_english_dictionary-3.1.3.xpi";
+      sha256 = "41ff1c8df7bfa29449d80103ac0f750269fb8c578f9c9bb0a70723c766844ed3";
+      meta = with lib;
+      {
+        description = "For some reason, Mozilla doesn't have a Canadian localization team, but I know that even the British dictionary doesn't quite cut it for the truly patriotic.";
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "file-backups" = buildFirefoxXpiAddon {
       pname = "file-backups";
       version = "0.4.0";
@@ -14,7 +27,7 @@
       meta = with lib;
       {
         homepage = "https://pmario.github.io/file-backups/";
-        description = "TiddlyWiki html-file saving and backup, using a Tower of Hanoi strategy!\n\nLearn more at: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/ff81a25bd90764a5e59099229353d04277ad071c87e22267748cd84e337bbfc6/https%3A//pmario.github.io/file-backups/\" rel=\"nofollow\">https://pmario.github.io/file-backups/</a>\nVideo: recoreded with V0.2.1 <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/6ea35f4c7c1555906034e73c75a79ebcff27f3a38ef7bbbef3a47fc76762b923/https%3A//youtu.be/KVLtID8nElU\" rel=\"nofollow\">https://youtu.be/KVLtID8nElU</a>  which is slightly outdated. But overall info is OK.";
+        description = "TiddlyWiki html-file saving and backup, using a Tower of Hanoi strategy!\n\nLearn more at: https://pmario.github.io/file-backups/\nVideo: recoreded with V0.2.1 https://youtu.be/KVLtID8nElU  which is slightly outdated. But overall info is OK.";
         mozPermissions = [
           "activeTab"
           "tabs"
@@ -26,13 +39,12 @@
         platforms = platforms.all;
       };
     };
-    
     "webrequest-rules" = buildFirefoxXpiAddon {
       pname = "webrequest-rules";
-      version = "4.4";
+      version = "4.5";
       addonId = "webrequest@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4219177/webrequest_rules-4.4.xpi";
-      sha256 = "d5283b995e357fce4d7fdce856552fbcce120cfdfcc7b5fe7d57fc2c612206da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4254198/webrequest_rules-4.5.xpi";
+      sha256 = "f0deb1c83aeffa71cf525057c046247f6587056f8cf586f0b7437f435e3bf043";
       meta = with lib;
       {
         homepage = "https://github.com/ichaoX/ext-webRequest";

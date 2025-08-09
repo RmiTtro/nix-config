@@ -15,7 +15,7 @@
     profiles.SecureProfile = {
       id = 1; # Must be different for each profile
       isDefault = false;
- 
+
       search.force = true;
       search.default = "ddg";
 
@@ -28,5 +28,14 @@
         /* some css */                        
       '';                                      
     };
+  };
+
+  permanenceHomeWrap = {
+    directories = [
+      {
+        directory = ".mozilla/firefox/SecureProfile";
+        ${if config.permanenceHomeWrap.isUsingHomeManagerModule then "method" else null} = "bindfs";
+      }
+    ];
   };
 }

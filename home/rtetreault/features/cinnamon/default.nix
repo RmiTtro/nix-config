@@ -10,19 +10,34 @@
     outputs.homeManagerModules.nemo
   ];
 
+  # I don't make home-manager manage the xsession since it cause me a lot of issues, especially with autostarting app
+  # xsession.enable = true;
+
   home = {
     # xsession.enable must be at true or this won't work
+    # Not used since I had problems with xsession.enable
+    # Instead, this is configured by dconf
+    /*
     keyboard = {
       layout = "us,ca";
-      variant = ",";
       options = [ "grp:alt_shift_toggle" ];
     };
+    */
   };
-  
-  xsession.enable = true;
+
+  qt = {
+    enable = true;
+    platformTheme.name = "adwaita";
+    style.name = "adwaita-dark";
+  };
 
   dconf = {
     enable = true;
+
+    # This match Keyboard > Layouts
+    settings."org/gnome/libgnomekbd/keyboard".layouts = ["us" "ca"];
+    settings."org/gnome/libgnomekbd/keyboard".options = ["grp\tgrp:alt_shift_toggle"];
+
     # settings."org/gnome/desktop/interface".color-scheme = "prefer-dark"; # Come from https://nixos.wiki/wiki/GNOME
     settings."org/x/apps/portal".color-scheme = "prefer-dark"; # Come from a search of color-scheme in dconf-editor
     
@@ -64,4 +79,15 @@
   
   # Override system Nemo so we can add plugins
   programs.nemo.enable = true;
+
+  permanenceHomeWrap = {
+    files = [
+      ".config/cinnamon-monitors.xml" # Display config is in that file
+    ];
+
+    directories = [
+      ".config/cinnamon/spices/grouped-window-list@cinnamon.org" # What is added to the task bar is kept somewhere in the file of this directory
+      ".local/share/gvfs-metadata" # I keep this because change to folder icon is kept in there
+    ];
+  };
 }

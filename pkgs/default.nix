@@ -1,7 +1,6 @@
 { pkgs ? import <nixpkgs> { } }: rec {
 
   # Personal scripts
-  mywikiserver = pkgs.callPackage ./mywikiserver { }; 
   clipboard = pkgs.callPackage ./clipboard { };
   firefoxExecForVopono = pkgs.callPackage ./firefoxExecForVopono { };
   firefox-vpn = pkgs.callPackage ./firefox-vpn { inherit firefoxExecForVopono; };

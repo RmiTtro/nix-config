@@ -42,6 +42,10 @@
     ./features/krita
     ./features/vlc
     ./features/vopono
+    ./features/impermanence
+    ./features/sops-nix
+    ./features/rog-control-center
+    ./features/games
   ];
 
   nixpkgs = {

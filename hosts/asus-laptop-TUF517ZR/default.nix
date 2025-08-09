@@ -17,7 +17,9 @@
     inputs.hardware.nixosModules.common-gpu-nvidia
     # Use this one if you plan to use the mux switch to have the dGPU control the laptop monitor directly
     #inputs.hardware.nixosModules.common-gpu-nvidia-nonprime
-
+    # Not using disko since I want to keep the windows recovery partition and it is not possible with disko
+    # inputs.disko.nixosModules.disko
+    # (import ./disko.nix { device = "/dev/nvme0n1"; })
     ./hardware-configuration.nix
     ./specialisation.nix
     ../common/nixos
@@ -42,6 +44,7 @@
     ../common/firejail
     ../common/podman
     ../common/zsa
+    ../common/impermanence
   ];
   
   # Enable OpenGL
@@ -77,8 +80,7 @@
     # supported GPUs is at: 
     # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
     # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false; 
+    open = true;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
@@ -107,8 +109,10 @@
   services.asusd = {
     enable = true;
     enableUserService = true;
+    # Need to use a specific version since the new one only support wayland
     package = pkgs-f89c670.asusctl;
   };
+  # TODO: This need to be changed when I use the current version of asusd, note that the config can now be specified using options
   environment.etc."asusd/asusd.ron" = {
     text = ''
       (
@@ -118,9 +122,12 @@
           disable_nvidia_powerd_on_battery: true,
           ac_command: "",
           bat_command: "",
-          platform_policy_linked_epp: true,
-          platform_policy_on_battery: Quiet,
-          platform_policy_on_ac: Performance,
+          throttle_policy_linked_epp: true,
+          throttle_policy_on_battery: Quiet,
+          throttle_policy_on_ac: Performance,
+          throttle_quiet_epp: Power,
+          throttle_balanced_epp: BalancePower,
+          throttle_performance_epp: Performance,
           ppt_pl1_spl: None,
           ppt_pl2_sppt: None,
           ppt_fppt: None,
@@ -128,6 +135,26 @@
           ppt_platform_sppt: None,
           nv_dynamic_boost: None,
           nv_temp_target: None,
+      )
+    '';
+    mode = "0644";
+  };
+  # I specify this file just so that the keyboard backlight is off by default
+  environment.etc."asusd/aura.ron" = {
+    text = ''
+      (
+          brightness: Off,
+          current_mode: Static,
+          builtins: {},
+          multizone: None,
+          multizone_on: false,
+          enabled: AuraDevRog1([
+              Sleep,
+              Keyboard,
+              Boot,
+              Lightbar,
+              Awake,
+          ]),
       )
     '';
     mode = "0644";
@@ -146,6 +173,7 @@
     };
   };
   boot.supportedFilesystems = [ "ntfs" ];
+  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/76232609-5d76-4412-aee4-2aadd3275d14";
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;

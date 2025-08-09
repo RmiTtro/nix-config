@@ -66,6 +66,7 @@
       };
 
       settings = (import ../commonSettings.nix) // {
+        "extensions.autoDisableScopes" = 0; # This prevent all extensions installed by nix to be disabled
       };
 
       userChrome = ''                         
@@ -73,12 +74,23 @@
       '';                                      
 
       # TODO: It is now possible to also declare the settings of each extension, need to see if this is needed here
-      extensions.packages = with inputs.firefox-addons.packages."${pkgs.system}"; [
+      extensions.packages = with inputs.firefox-addons.packages."${pkgs.system}"; with pkgs.firefox-addons; [
+        french-dictionary
+        canadian-english-dictionary
         darkreader
         ublock-origin
         multi-account-containers
         violentmonkey
       ];
     };
+  };
+
+  permanenceHomeWrap = {
+    directories = [
+      {
+        directory = ".mozilla/firefox/StandardProfile";
+        ${if config.permanenceHomeWrap.isUsingHomeManagerModule then "method" else null} = "bindfs";
+      }
+    ];
   };
 }

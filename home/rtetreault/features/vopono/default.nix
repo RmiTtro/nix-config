@@ -14,7 +14,7 @@
   (outputs.lib.addCopyOnChange config {
     xdg.configFile."vopono/config.toml" = {
       text = ''
-        provider = "nordvpn"
+        provider = "NordVPN"
         server = "canada"
         # NordVPN DNS url retrived on https://support.nordvpn.com/hc/en-us/articles/19587726859793-What-are-the-addresses-of-my-NordVPN-DNS-servers
         dns = ["103.86.96.100", "103.86.96.100"]
@@ -23,4 +23,12 @@
       removeInitFile = true;
     };
   })
+
+  {
+    permanenceHomeWrap = {
+      directories = [
+        ".config/vopono"
+      ];
+    };
+  }
 ]

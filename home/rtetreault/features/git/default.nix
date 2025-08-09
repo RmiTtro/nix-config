@@ -11,4 +11,10 @@
     userEmail = "tetreault.remi@gmail.com";
     package = pkgs.gitFull;
   };
+
+  permanenceHomeWrap = {
+    directories = [
+      "git"
+    ];
+  };
 }

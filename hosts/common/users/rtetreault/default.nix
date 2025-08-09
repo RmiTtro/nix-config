@@ -7,10 +7,6 @@
   ...
 }: let
 username = "rtetreault";
-userPasswordSecretConfigPath = [ "sops" "secrets" "users_password/${username}" ];
-userPasswordSecretPathConfigPath = userPasswordSecretConfigPath ++ [ "path" ];
-isUserPasswordSecretPathExists = lib.attrsets.hasAttrByPath userPasswordSecretPathConfigPath config;
-getUserPasswordSecretPath = lib.attrsets.getAttrFromPath userPasswordSecretPathConfigPath config;
 userHome = config.users.users."${username}".home;
 in {
   config = lib.mkMerge [
@@ -24,11 +20,9 @@ in {
         # initialPassword = "correcthorsebatterystaple";
         isNormalUser = true;
         description = "Rémi Tétreault";
+        uid = 1000;
         
-        hashedPasswordFile = 
-          if isUserPasswordSecretPathExists
-          then getUserPasswordSecretPath
-          else null;
+        hashedPasswordFile = config.sops.secrets."users_password/${username}".path or null;
         
         openssh.authorizedKeys.keys = [
           # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
@@ -46,12 +40,21 @@ in {
         };
       };
     }
+
+    (lib.mkIf (config.environment?persistence && config.home-manager.users.${username}.permanenceHomeWrap.enable) {
+      environment.persistence."/persistent" = {
+        users.${username} = {
+          directories = config.home-manager.users.${username}.permanenceHomeWrap.directories;
+          files = config.home-manager.users.${username}.permanenceHomeWrap.files;
+        };
+      };
+    })
     
-    (lib.mkIf (config ? "sops") 
-      (lib.attrsets.setAttrByPath userPasswordSecretConfigPath {
+    (lib.mkIf (config?sops) { 
+      sops.secrets."users_password/${username}" = {
         neededForUsers = true;
-      })
-    )
+      };
+    })
     
     (lib.mkIf (config.services.samba.enable) {
       services.samba.settings."${username}Public" = {
@@ -66,7 +69,7 @@ in {
       };
     })
     
-    (lib.mkIf (config.services.samba.enable && config ? "sops") {
+    (lib.mkIf (config.services.samba.enable && config?sops) {
       sops.secrets."samba_passwords/${username}" = {};
       
       systemd.services."${username}SambaAccountManagement" = {
