@@ -13,7 +13,10 @@
   
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
-    sharedModules = [ outputs.homeManagerModules.permanenceHomeWrap ];
+    sharedModules = [ 
+      outputs.homeManagerModules.permanenceHomeWrap 
+      outputs.homeManagerModules.addCopyOnChange 
+    ];
   };
   
 }

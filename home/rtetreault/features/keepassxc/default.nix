@@ -1,6 +1,5 @@
 {
   inputs,
-  outputs,
   lib,
   config,
   pkgs,
@@ -10,24 +9,20 @@
 in lib.mkMerge [
   {
     home.packages = with pkgs; [ keepassxc ];
-  } 
-
-  
-  (outputs.lib.addCopyOnChange config {
-    xdg.configFile."keepassxc/keepassxc.ini".text = ''
+    addCopyOnChange.xdg.configFile."keepassxc/keepassxc.ini".text = ''
       [SSHAgent]
       Enabled=true
 
       [GUI]
       ApplicationTheme=dark
     '';
-  })
+  }
       
   (lib.mkIf isMegasync
-    (outputs.lib.addCopyOnChange config {
+    {
       # This is to have my keepass bd configured to open as default
       # One of the field I need to set is usually serialized by QSettings, this is why the file need to be created by a python script
-      home.file.".cache/keepassxc/keepassxc.ini".source = (pkgs.runCommand "keepassxc.ini" {
+      addCopyOnChange.home.file.".cache/keepassxc/keepassxc.ini".source = (pkgs.runCommand "keepassxc.ini" {
         nativeBuildInputs = [ (pkgs.python3.withPackages(ps: [ ps.pyqt6 ])) ];
         sourceRoot = ".";
         src = let
@@ -49,7 +44,7 @@ in lib.mkMerge [
         python3 $src
         cp keepassxc.ini $out
       '');
-    })
+    }
   )
 
   (lib.mkIf (isMegasync && config?sops)
