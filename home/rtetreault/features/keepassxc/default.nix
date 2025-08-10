@@ -17,6 +17,9 @@ in lib.mkMerge [
     xdg.configFile."keepassxc/keepassxc.ini".text = ''
       [SSHAgent]
       Enabled=true
+
+      [GUI]
+      ApplicationTheme=dark
     '';
   })
       
