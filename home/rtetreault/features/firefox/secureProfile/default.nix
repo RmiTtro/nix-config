@@ -29,13 +29,4 @@
       '';                                      
     };
   };
-
-  permanenceHomeWrap = {
-    directories = [
-      {
-        directory = ".mozilla/firefox/SecureProfile";
-        ${if config.permanenceHomeWrap.isUsingHomeManagerModule then "method" else null} = "bindfs";
-      }
-    ];
-  };
 }
