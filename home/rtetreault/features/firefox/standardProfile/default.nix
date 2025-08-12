@@ -4,16 +4,25 @@
   config,
   pkgs,
   ...
-}: {
+}: let 
+  profile = "StandardProfile";
+in {
   imports = [
-    ../firefox.nix
+    (import ../defaultProfile.nix profile)
+    (import ../settings/doNotAutoDisableExtensions.nix profile)
+    (import ../custom-search-engines/searxng.nix profile)
+    (import ../custom-search-engines/bangs-overrides.nix profile)
+    (import ../profile-permanence.nix profile)
+    (import ../extensions/dictionaries.nix profile)
+    (import ../extensions/darkreader.nix profile)
+    (import ../extensions/ublock-origin.nix profile)
   ];
 
   programs.firefox = {
-    profiles.StandardProfile = {
+    profiles.${profile} = {
       id = 0; # Must be different for each profile
       isDefault = true;
-      search.engines = (import ../custom-search-engines/searxng.nix pkgs) // {
+      search.engines = {
         /*
         # Exemple to add a search engine
         "Nix Packages" = {
@@ -30,8 +39,6 @@
         };
         */
       };
-      search.force = true;
-      search.default = "ddg";
 
       # Not using this since it will delete all my existing bookmarks that are synced in Firefox sync
       # Will have to sort through my existing bookmarks and add them here
@@ -47,26 +54,7 @@
             url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
           }
           */
-
-
-          /*
-          {
-            name = "Bangs overrides";
-            bookmarks = [
-              {
-                name = "NixOS options";
-                url = "https://search.nixos.org/options?channel=unstable&query=%s";
-                tags = [ "nix" "bangs" ];
-                keyword = "!nixopt";
-              }
-            ];
-          }
-          */
         ];
-      };
-
-      settings = (import ../commonSettings.nix) // {
-        "extensions.autoDisableScopes" = 0; # This prevent all extensions installed by nix to be disabled
       };
 
       userChrome = ''                         
@@ -75,22 +63,9 @@
 
       # TODO: It is now possible to also declare the settings of each extension, need to see if this is needed here
       extensions.packages = with inputs.firefox-addons.packages."${pkgs.system}"; with pkgs.firefox-addons; [
-        french-dictionary
-        canadian-english-dictionary
-        darkreader
-        ublock-origin
         multi-account-containers
         violentmonkey
       ];
     };
-  };
-
-  permanenceHomeWrap = {
-    directories = [
-      {
-        directory = ".mozilla/firefox/StandardProfile";
-        ${if config.permanenceHomeWrap.isUsingHomeManagerModule then "method" else null} = "bindfs";
-      }
-    ];
   };
 }

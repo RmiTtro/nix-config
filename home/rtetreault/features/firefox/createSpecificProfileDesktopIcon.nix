@@ -1,6 +1,9 @@
-{pkgs, name, profile}:
+profile: name:
+
+
+{pkgs, ...}:
 {
-  "Desktop/${profile}.desktop" = {
+  home.file."Desktop/${profile}.desktop" = {
     source = (pkgs.runCommand "${profile}.desktop" 
       {
         src = "${pkgs.firefox}/share/applications/firefox.desktop"; 

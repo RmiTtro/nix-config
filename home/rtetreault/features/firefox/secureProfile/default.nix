@@ -4,22 +4,19 @@
   config,
   pkgs,
   ...
-}: {
+}: let 
+  profile = "SecureProfile";
+in {
   imports = [
-    ../firefox.nix
+    (import ../defaultProfile.nix profile)
+    (import ../createSpecificProfileDesktopIcon.nix  profile "Secure Firefox")
   ];
 
-  home.file = import ../createSpecificProfileDesktopIcon.nix {inherit pkgs; name="Secure Firefox"; profile = "SecureProfile";};
-
   programs.firefox = {
-    profiles.SecureProfile = {
+    profiles.${profile} = {
       id = 1; # Must be different for each profile
-      isDefault = false;
 
-      search.force = true;
-      search.default = "ddg";
-
-      settings = (import ../commonSettings.nix) // {
+      settings = {
         "browser.startup.page" = 0; # Start on about:blank
         "browser.privatebrowsing.autostart" = true; # Prevent the browser from remmembering histo
       };
