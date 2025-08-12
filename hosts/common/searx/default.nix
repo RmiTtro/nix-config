@@ -29,6 +29,8 @@
       };
 
       server = {
+        bind_address = "0.0.0.0";
+        port = 8888;
         # Is overwritten by ${SEARXNG_SECRET}
         secret_key = "@SEARX_SECRET_KEY@";
         # Limiter is to protect against bot, only useful if the server is public

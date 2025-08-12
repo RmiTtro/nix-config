@@ -45,8 +45,9 @@
     ../common/podman
     ../common/zsa
     ../common/impermanence
+    ../common/tailscale
   ];
-  
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
