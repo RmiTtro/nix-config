@@ -7,14 +7,14 @@ profile:
       name = "NixOS options";
       urls = [{ template = "https://search.nixos.org/options?channel=unstable&query={searchTerms}"; }];
       icon = "https://search.nixos.org/favicon.png";
-      definedAliases = [ "!nixopt" ];
+      definedAliases = [ "!nixopt" "!!nixopt" ];
     };
 
     home-manager-option-search = {
       name = "Home manager Option search";
       urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}&release=master"; }];
       icon = "https://home-manager-options.extranix.com/images/favicon.png";
-      definedAliases = [ "!homemanager" "!home-manager" ];
+      definedAliases = [ "!homemanager" "!home-manager" "!!homemanager" "!!home-manager" ];
     };
   };
 }
