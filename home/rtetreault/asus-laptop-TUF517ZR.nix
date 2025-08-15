@@ -46,6 +46,7 @@
     ./features/sops-nix
     ./features/rog-control-center
     ./features/games
+    ./features/qbittorrent
   ];
 
   nixpkgs = {
