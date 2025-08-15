@@ -1,14 +1,59 @@
 profile:
 
-{lib, ...}: { 
-  programs.firefox.profiles.${profile}.settings = lib.mkDefault {
+{inputs, pkgs, lib, ...}: let
+  # Convert betterfox user.js file into nix code representing an attribute set
+  betterfox-nix-file = (pkgs.runCommand 
+    "betterfox.nix" 
+    {
+      src = "${inputs.betterfox}/user.js";
+    } 
+    # first -e: add a { as the first line
+    # second -e: add a } as the last line
+    # third -e: change line comment symbol from // to # for comment spanning a complete line
+    # fourth -e: change line comment symbol from // to # for comment after a user_pref
+    # fifth -e: change user_pref("key", "value"); to "key" = "value";
+    ''
+      sed -r -e '1i{' -e '$a}' -e 's/^\/\//#/' -e 's/^(user_pref\(.+\);\s*)\/\//\1#/' -e 's/^user_pref\((".+")\s*,\s*(.+)\);/\1 = \2;/' $src > $out
+    ''
+  );
+  # Load the created attribute set
+  betterfox-nix = (import betterfox-nix-file);
+in  
+{ 
+  # The profiles settings are based on betterfox with some overrides
+  # For more infos, see: https://github.com/yokoffing/Betterfox
+  programs.firefox.profiles.${profile}.settings = betterfox-nix // {
+    # PREF: I want to use the same search engine for default and private 
+    "browser.search.separatePrivateDefault.ui.enabled" = false;
+    
+    # PREF: disable login manager
+    "signon.rememberSignons" = false;
+
     # These 2 settings correspond to the 2 checkbox under Privacy & Security > Froms and Autofill
     "extensions.formautofill.addresses.enabled" = false;
     "extensions.formautofill.creditCards.enabled" = false;
-    
-    # Remove sponsored stuff from new tab page
-    "browser.newtabpage.activity-stream.showSponsored" = false;
-    "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+
+    # PREF: enforce certificate pinning
+    # [ERROR] MOZILLA_PKIX_ERROR_KEY_PINNING_FAILURE
+    # 1 = allow user MiTM (such as your antivirus) (default)
+    # 2 = strict
+    "security.cert_pinning.enforcement_level" = 2;
+
+    # PREF: set DNS-over-HTTPS provider
+    "network.trr.uri" = "https://dns.dnswarden.com/00000000000000000000048"; # Hagezi Light + TIF
+
+    # PREF: enforce DNS-over-HTTPS (DoH)
+    "network.trr.mode" = lib.mkDefault 2;
+    "network.trr.max-fails" = 5;
+
+    # PREF: display the installation prompt for all extensions even the recommended extension
+    "extensions.postDownloadThirdPartyPrompt" = false;
+
+    # PREF: restore search engine suggestions
+    "browser.search.suggest.enabled" = true;
+
+    # PREF: don't show weather on New Tab page
+    "browser.newtabpage.activity-stream.showWeather" = false;
     
     # Don't show an import button in the toolbar
     # The true value is to trick the browser into thinking it already added it
@@ -19,7 +64,7 @@ profile:
     #   - always
     #   - never
     #   - newtab
-    "browser.toolbars.bookmarks.visibility" = "never";
+    "browser.toolbars.bookmarks.visibility" = lib.mkDefault "never";
     
     # Control what the browser show when starting:
     # Possibles values:
@@ -27,116 +72,11 @@ profile:
     #   - 1 : web page defined in Browser.startup.homepage (default)
     #   - 2 : last visited page
     #   - 3 : resume browser session
-    "browser.startup.page" = 3;
+    "browser.startup.page" = lib.mkDefault 3;
     
     # Set to true to disable histo
-    "browser.privatebrowsing.autostart" = false; 
-    
-    "app.normandy.api_url" = "";
-    "app.normandy.enabled" = false;
-    "app.shield.optoutstudies.enabled" = false;
-    "app.update.auto" = false;
-    "beacon.enabled" = false;
-    "breakpad.reportURL" = "";
-    "browser.aboutConfig.showWarning" = false;
-    "browser.cache.offline.enable" = false;
-    "browser.crashReports.unsubmittedCheck.autoSubmit" = false;
-    "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
-    "browser.crashReports.unsubmittedCheck.enabled" = false;
-    "browser.disableResetPrompt" = true;
-    "browser.newtab.preload" = false;
-    "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
-    "browser.newtabpage.enhanced" = false;
-    "browser.newtabpage.introShown" = true;
-    "browser.safebrowsing.appRepURL" = "";
-    "browser.safebrowsing.blockedURIs.enabled" = false;
-    "browser.safebrowsing.downloads.enabled" = false;
-    "browser.safebrowsing.downloads.remote.enabled" = false;
-    "browser.safebrowsing.downloads.remote.url" = "";
-    "browser.safebrowsing.enabled" = false;
-    "browser.safebrowsing.malware.enabled" = false;
-    "browser.safebrowsing.phishing.enabled" = false;
-    "browser.selfsupport.url" = "";
-    "browser.send_pings" = false;
-    "browser.sessionstore.privacy_level" = 0;
-    "browser.shell.checkDefaultBrowser" = false;
-    "browser.startup.homepage_override.mstone" = "ignore";
-    "browser.tabs.crashReporting.sendReport" = false;
-    "browser.urlbar.groupLabels.enabled" = false;
-    "browser.urlbar.quicksuggest.enabled" = false;
-    "browser.urlbar.speculativeConnect.enabled" = false;
-    "browser.urlbar.trimURLs" = false;
-    "datareporting.healthreport.service.enabled" = false;
-    "datareporting.healthreport.uploadEnabled" = false;
-    "datareporting.policy.dataSubmissionEnabled" = false;
-    "device.sensors.ambientLight.enabled" = false;
-    "device.sensors.enabled" = false;
-    "device.sensors.motion.enabled" = false;
-    "device.sensors.orientation.enabled" = false;
-    "device.sensors.proximity.enabled" = false;
-    "dom.battery.enabled" = false;
-    "dom.security.https_only_mode" = true;
-    "dom.security.https_only_mode_ever_enabled" = true;
-    "experiments.activeExperiment" = false;
-    "experiments.enabled" = false;
-    "experiments.manifest.uri" = "";
-    "experiments.supported" = false;
-    "extensions.getAddons.cache.enabled" = false;
-    "extensions.getAddons.showPane" = false;
-    "extensions.greasemonkey.stats.optedin" = false;
-    "extensions.greasemonkey.stats.url" = "";
-    "extensions.pocket.enabled" = false;
-    "extensions.shield-recipe-client.api_url" = "";
-    "extensions.shield-recipe-client.enabled" = false;
-    "extensions.webservice.discoverURL" = "";
-    "media.autoplay.default" = 0;
-    "media.autoplay.enabled" = true;
-    "media.eme.enabled" = false;
-    "media.gmp-widevinecdm.enabled" = false;
-    "media.navigator.enabled" = false;
-    "media.video_stats.enabled" = false;
-    "network.allow-experiments" = false;
-    "network.captive-portal-service.enabled" = false;
-    "network.cookie.cookieBehavior" = 1;
-    "network.dns.disablePrefetch" = true;
-    "network.dns.disablePrefetchFromHTTPS" = true;
-    "network.http.referer.spoofSource" = true;
-    "network.http.speculative-parallel-limit" = 0;
-    "network.predictor.enable-prefetch" = false;
-    "network.predictor.enabled" = false;
-    "network.prefetch-next" = false;
-    "network.trr.mode" = 5;
-    "privacy.donottrackheader.enabled" = true;
-    "privacy.donottrackheader.value" = 1;
-    "privacy.query_stripping" = true;
-    "privacy.trackingprotection.cryptomining.enabled" = true;
-    "privacy.trackingprotection.enabled" = true;
-    "privacy.trackingprotection.fingerprinting.enabled" = true;
-    "privacy.trackingprotection.pbmode.enabled" = true;
-    "privacy.usercontext.about_newtab_segregation.enabled" = true;
-    "security.ssl.disable_session_identifiers" = true;
-    "services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsoredTopSite" = false;
-    "services.sync.prefs.sync-seen.browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
-    "services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
-    "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
-    "signon.autofillForms" = false;
-    "toolkit.telemetry.archive.enabled" = false;
-    "toolkit.telemetry.bhrPing.enabled" = false;
-    "toolkit.telemetry.cachedClientID" = "";
-    "toolkit.telemetry.enabled" = false;
-    "toolkit.telemetry.firstShutdownPing.enabled" = false;
-    "toolkit.telemetry.hybridContent.enabled" = false;
-    "toolkit.telemetry.newProfilePing.enabled" = false;
-    "toolkit.telemetry.prompted" = 2;
-    "toolkit.telemetry.rejected" = true;
-    "toolkit.telemetry.reportingpolicy.firstRun" = false;
-    "toolkit.telemetry.server" = "";
-    "toolkit.telemetry.shutdownPingSender.enabled" = false;
-    "toolkit.telemetry.unified" = false;
-    "toolkit.telemetry.unifiedIsOptIn" = false;
-    "toolkit.telemetry.updatePing.enabled" = false;
-    "signon.rememberSignons" = false;
-    
+    "browser.privatebrowsing.autostart" = lib.mkDefault false;
+
     # Disable annoying beep sound that play when performing a search
     "accessibility.typeaheadfind.enablesound" = false;
   };

@@ -23,7 +23,12 @@ in {
 
       userChrome = ''                         
         /* some css */                        
-      ''; 
+      '';
+
+      settings = {
+        # The vpn provide a dns, no need to use DNS-over-HTTPS 
+        "network.trr.mode" = 5; 
+      };
     };
   };
 

@@ -37,6 +37,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    betterfox = {
+      url = "github:yokoffing/Betterfox";
+      flake = false;
+    };
+
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     
     # TODO: Transfert everything relathing to cuda to their own flake

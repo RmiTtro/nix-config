@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "betterfox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753201717,
+        "narHash": "sha256-gHFA/1PeQ0iNAcjATGwgJOqRlR9YmxD/RJKkYN36QYA=",
+        "owner": "yokoffing",
+        "repo": "Betterfox",
+        "rev": "9727810114a44ddc4df35b2ef8ee8783ec95cf35",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yokoffing",
+        "repo": "Betterfox",
+        "type": "github"
+      }
+    },
     "cudaTheme_darcula": {
       "flake": false,
       "locked": {
@@ -291,6 +307,7 @@
     },
     "root": {
       "inputs": {
+        "betterfox": "betterfox",
         "cudaTheme_darcula": "cudaTheme_darcula",
         "cuda_differ": "cuda_differ",
         "cuda_find_in_files4": "cuda_find_in_files4",
