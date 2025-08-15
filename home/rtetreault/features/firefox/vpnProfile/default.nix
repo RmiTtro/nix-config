@@ -6,6 +6,7 @@
   ...
 }: let
   profile = "VPNProfile";
+  isVoponoJail = lib.lists.any (p: p == pkgs.voponojail) config.home.packages;
 in {
   imports = [
     (import ../defaultProfile.nix profile)
@@ -32,5 +33,7 @@ in {
     };
   };
 
-  home.packages = with pkgs; [ firefox-vpn firefoxExecForVopono ];
+  home.shellAliases = {
+    ${if isVoponoJail then "firefox-vpn" else null} = "voponojail firefox -P ${profile}";
+  }; 
 }

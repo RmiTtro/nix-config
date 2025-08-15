@@ -2,8 +2,8 @@
 
   # Personal scripts
   clipboard = pkgs.callPackage ./clipboard { };
-  firefoxExecForVopono = pkgs.callPackage ./firefoxExecForVopono { };
-  firefox-vpn = pkgs.callPackage ./firefox-vpn { inherit firefoxExecForVopono; };
+  firejailExecForVopono = pkgs.callPackage ./firejailExecForVopono { };
+  voponojail = pkgs.callPackage ./voponojail { inherit firejailExecForVopono; };
   
   firefox-addons = pkgs.callPackage ./firefox-addons { };
   

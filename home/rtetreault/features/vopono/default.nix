@@ -6,7 +6,7 @@
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [ vopono openvpn ];
+  home.packages = with pkgs; [ vopono voponojail openvpn ];
 
   # Done this way since vopono does not like its config file to be readonly
   addCopyOnChange.xdg.configFile."vopono/config.toml" = {
