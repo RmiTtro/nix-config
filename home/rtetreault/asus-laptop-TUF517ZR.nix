@@ -47,6 +47,7 @@
     ./features/rog-control-center
     ./features/games
     ./features/qbittorrent
+    ./features/fhs
   ];
 
   nixpkgs = {

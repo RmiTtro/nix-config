@@ -9,4 +9,6 @@
   
   # Package that I have to commit to nixpkgs
   megashellextnemo = pkgs.libsForQt5.callPackage ./megashellextnemo {};
+
+  powerline-go-fhs = pkgs.callPackage ./powerline-go-fhs {};
 }
