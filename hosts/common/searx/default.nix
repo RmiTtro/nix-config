@@ -88,7 +88,7 @@
       */
     };
 
-    environmentFile = config.sops.secrets."searx".path;
+    environmentFile = config.sops.secrets."searx".path or null;
   };
 
   sops.secrets."searx" = { };

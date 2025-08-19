@@ -35,7 +35,8 @@
       };
     };
     
-    networking.networkmanager.ensureProfiles.environmentFiles = [ config.sops.secrets."wifi_psk/DERYtelecom_80114276".path ];
+    networking.networkmanager.ensureProfiles.environmentFiles = 
+      lib.optional config.sops.enable config.sops.secrets."wifi_psk/DERYtelecom_80114276".path;
     
     sops.secrets."wifi_psk/DERYtelecom_80114276" = { };
   };

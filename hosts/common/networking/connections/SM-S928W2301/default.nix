@@ -35,7 +35,8 @@
       };
     };
     
-    networking.networkmanager.ensureProfiles.environmentFiles = [ config.sops.secrets."wifi_psk/SM-S928W2301".path ];
+    networking.networkmanager.ensureProfiles.environmentFiles = 
+      lib.optional config.sops.enable config.sops.secrets."wifi_psk/SM-S928W2301".path;
     
     sops.secrets."wifi_psk/SM-S928W2301" = { };
   };

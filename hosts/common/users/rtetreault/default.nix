@@ -41,7 +41,7 @@ in {
       };
     }
 
-    (lib.mkIf (config.environment?persistence && config.home-manager.users.${username}.permanenceHomeWrap.enable) {
+    (lib.mkIf (config.home-manager.users.${username}.permanenceHomeWrap.enable) {
       environment.persistence."/persistent" = {
         users.${username} = {
           directories = config.home-manager.users.${username}.permanenceHomeWrap.directories;
@@ -50,11 +50,12 @@ in {
       };
     })
     
-    (lib.mkIf (config?sops) { 
+    {
       sops.secrets."users_password/${username}" = {
         neededForUsers = true;
       };
-    })
+    }
+
     
     (lib.mkIf (config.services.samba.enable) {
       services.samba.settings."${username}Public" = {
@@ -69,7 +70,7 @@ in {
       };
     })
     
-    (lib.mkIf (config.services.samba.enable && config?sops) {
+    (lib.mkIf (config.services.samba.enable && config.sops.enable) {
       sops.secrets."samba_passwords/${username}" = {};
       
       systemd.services."${username}SambaAccountManagement" = {

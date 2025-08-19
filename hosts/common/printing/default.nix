@@ -23,7 +23,7 @@ in {
     openFirewall = true;
   };
 
-  environment.${assignIfAttrOf config.environment "persistence"}."/persistent" = {
+  environment.persistence."/persistent" = {
     directories = [
       "/etc/cups/"
     ];

@@ -18,7 +18,7 @@ in lib.mkMerge [
     '';
   }
       
-  (lib.mkIf isMegasync
+  (lib.mkIf (isMegasync && config.sops.enable)
     {
       # This is to have my keepass bd configured to open as default
       # One of the field I need to set is usually serialized by QSettings, this is why the file need to be created by a python script
@@ -44,11 +44,7 @@ in lib.mkMerge [
         python3 $src
         cp keepassxc.ini $out
       '');
-    }
-  )
 
-  (lib.mkIf (isMegasync && config?sops)
-    {
       sops.secrets."RT_SKULL.key" = {
         format = "binary";
         sopsFile = ./RT_SKULL.key;

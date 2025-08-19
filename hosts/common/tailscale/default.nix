@@ -12,7 +12,7 @@ in {
   # To login with auth key: sudo tailscale up --auth-key=KEY
   services.tailscale.enable = true;
 
-  environment.${assignIfAttrOf config.environment "persistence"}."/persistent" = {
+  environment.persistence."/persistent" = {
     directories = [
       "/var/lib/tailscale"
     ];

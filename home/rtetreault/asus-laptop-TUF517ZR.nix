@@ -16,7 +16,8 @@
   # You can import other home-manager modules here
   imports = [
     outputs.homeManagerModules.preferredApplications
-
+    ./features/impermanence
+    ./features/sops-nix/active.nix
     ./features/cudatext
     ./features/geany
     ./features/pyp
@@ -42,8 +43,6 @@
     ./features/krita
     ./features/vlc
     ./features/vopono
-    ./features/impermanence
-    ./features/sops-nix
     ./features/rog-control-center
     ./features/games
     ./features/qbittorrent

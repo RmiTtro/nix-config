@@ -34,7 +34,7 @@
     ../common/homeManagerModule
     ../common/users/rtetreault
     ../common/cinnamon
-    ../common/sops-nix
+    ../common/sops-nix/active.nix
     ../common/steam
     ../common/solaar
     ../common/samba
@@ -44,7 +44,7 @@
     ../common/firejail
     ../common/podman
     ../common/zsa
-    ../common/impermanence
+    ../common/impermanence/active.nix
     ../common/tailscale
   ];
 
