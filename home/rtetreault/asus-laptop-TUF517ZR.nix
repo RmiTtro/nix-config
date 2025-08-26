@@ -47,6 +47,8 @@
     ./features/games
     ./features/qbittorrent
     ./features/fhs
+    ./features/ai/sillytavern
+    ./features/ai/lmstudio
   ];
 
   nixpkgs = {
