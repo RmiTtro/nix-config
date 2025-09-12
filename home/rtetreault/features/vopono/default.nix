@@ -16,8 +16,8 @@
       # NordVPN DNS url retrived on https://support.nordvpn.com/hc/en-us/articles/19587726859793-What-are-the-addresses-of-my-NordVPN-DNS-servers
       dns = ["103.86.96.100", "103.86.96.100"]
     '';
-    # Also have to remove the init file since vopono does not want any file to be readonly in its config directory
-    removeInitFile = true;
+    # Also have to place the init file elsewhere since vopono does not want any file to be readonly in its config directory
+    initFileInSpecialDir = true;
   };
 
   permanenceHomeWrap = {
