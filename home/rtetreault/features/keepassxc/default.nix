@@ -4,9 +4,9 @@
   config,
   pkgs,
   ...
-}: let 
-  isMegasync = lib.lists.any (p: p == pkgs.megasync) config.home.packages;  
-in lib.mkMerge [
+}: 
+
+lib.mkMerge [
   {
     home.packages = with pkgs; [ keepassxc ];
     addCopyOnChange.xdg.configFile."keepassxc/keepassxc.ini".text = ''
@@ -18,7 +18,7 @@ in lib.mkMerge [
     '';
   }
       
-  (lib.mkIf (isMegasync && config.sops.enable)
+  (lib.mkIf (config.cloud.enable && config.sops.enable)
     {
       # This is to have my keepass bd configured to open as default
       # One of the field I need to set is usually serialized by QSettings, this is why the file need to be created by a python script
@@ -26,7 +26,7 @@ in lib.mkMerge [
         nativeBuildInputs = [ (pkgs.python3.withPackages(ps: [ ps.pyqt6 ])) ];
         sourceRoot = ".";
         src = let
-          databasePath="${config.home.homeDirectory}/MEGA/pass/rt_skull.kdbx";
+          databasePath="${config.cloud.path}/pass/rt_skull.kdbx";
           keyPath=config.sops.secrets."RT_SKULL.key".path;
         in pkgs.writeTextFile {
           name = "createKeepassxcIni.py";

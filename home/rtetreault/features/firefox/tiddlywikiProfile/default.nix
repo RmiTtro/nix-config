@@ -6,7 +6,6 @@
   ...
 }: let
   profile = "TiddlywikiProfile";
-  isMegasync = lib.lists.any (p: p == pkgs.megasync) config.home.packages;
 in {
   imports = [
     (import ../defaultProfile.nix profile)
@@ -29,7 +28,7 @@ in {
             bookmarks = (
               []
               ++ (
-                lib.lists.optional isMegasync {
+                lib.lists.optional config.cloud.enable  {
                   name = "myWikis";
                   url = "file://${config.home.homeDirectory}/Downloads/myWikis/";
                 }
@@ -57,8 +56,8 @@ in {
   };
   
   home.file = {
-    ${if isMegasync then "Downloads/myWikis" else null}.source = 
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/MEGA/myWikis";
+    ${if config.cloud.enable then "Downloads/myWikis" else null}.source = 
+      config.lib.file.mkOutOfStoreSymlink "${config.cloud.path}/myWikis";
   };  
     
 }

@@ -28,8 +28,7 @@
     ./features/firefox/vpnProfile
     ./features/copyq
     ./features/git
-    ./features/megasync
-    ./features/megasync/nemo
+    ./features/cloud/filen
     ./features/shutter
     ./features/clipboard
     ./features/mywikiserver
@@ -77,7 +76,7 @@
     "public"
     "bookmarkBreakpoint"
     "git"
-    "mega"
+    "filen"
     "homeNetworkShare"
   ];
   

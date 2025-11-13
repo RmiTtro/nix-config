@@ -12,6 +12,7 @@
     downloads = "file:///home/rtetreault/Downloads Downloads";
     public = "file:///home/rtetreault/Public Public";
     mega = "file:///home/rtetreault/MEGA MEGA";
+    filen = "file:///home/rtetreault/Filen Filen";
     git = "file:///home/rtetreault/git git";
     homeNetworkShare = "smb://desktop-lvv7t9v/public/ Home network share";
     bookmarkBreakpoint = "";
