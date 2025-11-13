@@ -7,9 +7,12 @@
 }: {
   programs.git = {
     enable = true;
-    userName = "RmiTtro";
-    userEmail = "tetreault.remi@gmail.com";
     package = pkgs.gitFull;
+  };
+
+  programs.git.settings.user = {
+    name = "RmiTtro";
+    email = "tetreault.remi@gmail.com";
   };
 
   permanenceHomeWrap = {

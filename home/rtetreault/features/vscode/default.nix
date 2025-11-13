@@ -80,7 +80,7 @@
     "workbench.editor.empty.hint" = "hidden";
   };
 
-  programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
+  programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${pkgs.stdenv.hostPlatform.system}".vscode-marketplace; [
     jnoortheen.nix-ide
   ];
 

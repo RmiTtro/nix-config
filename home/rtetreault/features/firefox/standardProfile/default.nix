@@ -62,7 +62,7 @@ in {
       '';                                      
 
       # TODO: It is now possible to also declare the settings of each extension, need to see if this is needed here
-      extensions.packages = with inputs.firefox-addons.packages."${pkgs.system}"; with pkgs.firefox-addons; [
+      extensions.packages = with inputs.firefox-addons.packages."${pkgs.stdenv.hostPlatform.system}"; with pkgs.firefox-addons; [
         multi-account-containers
         violentmonkey
       ];

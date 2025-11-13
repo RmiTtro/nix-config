@@ -120,7 +120,7 @@
         specificPkgsVersionName = nixpkgs.lib.strings.replaceStrings ["nix"] [""] specificNixPkgsVersionName;
       in
       {
-        _module.args."${specificPkgsVersionName}" = import specificNixPkgsVersionValue { system = pkgs.system; };
+        _module.args."${specificPkgsVersionName}" = import specificNixPkgsVersionValue { system = pkgs.stdenv.hostPlatform.system; };
       };
 
     makeNixosSystem = {hostname, additionalModules ? []}: {
