@@ -23,7 +23,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    impermanence.url = "github:nix-community/impermanence";
+    # I use this commit instead of the official branch since it has a fix that make trash work with bind mount
+    impermanence.url = "github:uonr/impermanence/454b64bebb2766c2665743d3cc83dcf3a9dd0891";
+    #impermanence.url = "github:nix-community/impermanence";
     
     hardware.url = "github:nixos/nixos-hardware";
     
