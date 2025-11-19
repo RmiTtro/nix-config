@@ -100,6 +100,9 @@
       nvidiaBusId = "PCI:1:0:0";
     };
 
+    # This to stop screen tearing as suggested on https://christitus.com/fix-screen-tearing-linux/
+    forceFullCompositionPipeline = true;
+
     # Allow to chose a specific driver version
     # package = config.boot.kernelPackages.nvidiaPackages.production;
   };
