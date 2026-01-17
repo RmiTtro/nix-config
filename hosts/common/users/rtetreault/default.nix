@@ -69,6 +69,11 @@ in {
         "force group" = "users";
       };
     })
+
+
+    (lib.mkIf (config.virtualisation.virtualbox.host.enable) {
+      users.extraGroups.vboxusers.members = [ username ];
+    })
     
     (lib.mkIf (config.services.samba.enable && config.sops.enable) {
       sops.secrets."samba_passwords/${username}" = {};

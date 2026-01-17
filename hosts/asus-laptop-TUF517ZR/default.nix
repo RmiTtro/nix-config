@@ -46,6 +46,7 @@
     ../common/zsa
     ../common/impermanence/active.nix
     ../common/tailscale
+    ../common/virtualbox
   ];
 
   # Enable OpenGL

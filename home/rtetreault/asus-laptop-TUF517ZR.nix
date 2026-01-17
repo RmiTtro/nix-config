@@ -48,6 +48,7 @@
     ./features/fhs
     ./features/ai/sillytavern
     ./features/ai/lmstudio
+    ./features/virtualbox
   ];
 
   nixpkgs = {
