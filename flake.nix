@@ -7,6 +7,8 @@
     #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-f89c670.url = "github:nixos/nixpkgs/f89c670a01ba9b5e2c29c2f692fd654dfab686b5";
 
+    nix-ttf-ms-win11-auto.url = "github:kugland/nix-ttf-ms-win11-auto";
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
