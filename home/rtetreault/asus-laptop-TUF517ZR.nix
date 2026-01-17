@@ -49,6 +49,7 @@
     ./features/ai/sillytavern
     ./features/ai/lmstudio
     ./features/virtualbox
+    ./features/flatpak
   ];
 
   nixpkgs = {

@@ -47,6 +47,7 @@
     ../common/impermanence/active.nix
     ../common/tailscale
     ../common/virtualbox
+    ../common/flatpak
   ];
 
   # Enable OpenGL
