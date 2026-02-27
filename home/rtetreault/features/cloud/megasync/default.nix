@@ -22,7 +22,7 @@ in
   
   xdg.configFile."autostart/megasync.desktop".source = "${megasync}/share/applications/megasync.desktop";
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       "MEGA"
       "MEGAsync Downloads"

@@ -15,7 +15,7 @@
     email = "tetreault.remi@gmail.com";
   };
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       "git"
     ];

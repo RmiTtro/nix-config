@@ -14,7 +14,7 @@
       "sillytavern" = "sillytavern --global";
     };
 
-    permanenceHomeWrap = {
+    home.persistence."/persistent" = {
       directories = [
         ".local/share/SillyTavern"
       ];

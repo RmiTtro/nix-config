@@ -15,7 +15,7 @@ in {
     Accepted=true
   '';
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       # ".config/qBittorrent" # configs saved in here, not persisted because I don't think it is necessary
       ".local/share/qBittorrent" # The currently downloading torrent are saved in here

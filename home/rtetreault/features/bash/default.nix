@@ -15,7 +15,7 @@
 
   programs.bash.enable = true;
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       ".local/share/direnv"
     ];

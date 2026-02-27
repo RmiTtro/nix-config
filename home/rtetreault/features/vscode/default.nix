@@ -28,7 +28,7 @@
     jnoortheen.nix-ide
   ];
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       ".config/Code/User"
     ];

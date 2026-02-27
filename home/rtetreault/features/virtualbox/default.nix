@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: {
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       ".config/VirtualBox"
       "VirtualBox VMs"

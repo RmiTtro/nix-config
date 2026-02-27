@@ -80,7 +80,7 @@
   # Override system Nemo so we can add plugins
   programs.nemo.enable = true;
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     files = [
       ".config/cinnamon-monitors.xml" # Display config is in that file
     ];

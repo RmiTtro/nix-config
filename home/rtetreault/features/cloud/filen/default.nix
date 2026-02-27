@@ -17,7 +17,7 @@ in
   
   xdg.configFile."autostart/filen-desktop.desktop".source = "${filen-desktop}/share/applications/filen-desktop.desktop";
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       "Filen"
       ".config/@filen"

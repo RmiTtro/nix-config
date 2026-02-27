@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: {
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       ".var/app"
       ".local/share/flatpak"

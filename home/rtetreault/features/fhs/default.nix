@@ -39,7 +39,7 @@
 
   # The evil directory is where I plan to put everything that I'm going to execute with fhs
   # The evil name is because it is not how thing are ment to be done in NixOS
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       "evil"
     ];

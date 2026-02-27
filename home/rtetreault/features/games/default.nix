@@ -7,7 +7,7 @@
 }: {
   home.packages = with pkgs; [ (bottles.override { removeWarningPopup = true; }) ];
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       ".local/share/bottles"
       ".local/share/Steam"

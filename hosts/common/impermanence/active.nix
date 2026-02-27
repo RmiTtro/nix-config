@@ -37,10 +37,17 @@
     umount /btrfs_tmp
   '';
 
-  programs.fuse.userAllowOther = true;
   environment.persistence."/persistent" = {
     enable = true;  # NB: Defaults to true, not needed
     hideMounts = true;
+
+    # All specified directories are gonna be bind mount from the persistent directory to the specified location
+    # Normally, it is not possible to send a file from these directories to the Trash, meaning we have to resort to permanently suppressing the file instead
+    # Setting this option to true allow the trash fonctionality to be usable again
+    # Do note that this work by creating a trash directory (.Trash-<uid>) in the bind mounted directory
+    # This means that every directory we want to persist will have an hidden trash directory in its subdirectories 
+    allowTrash = true;
+
     directories = [
       "/var/log"
       "/var/lib/power-profiles-daemon"

@@ -8,7 +8,7 @@
 }: {
   home.packages = with pkgs; [ lmstudio ];
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       ".config/LM Studio"
       ".lmstudio"

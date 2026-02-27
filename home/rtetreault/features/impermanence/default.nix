@@ -4,8 +4,9 @@
   pkgs,
   ...
 }: {
-  permanenceHomeWrap = {
-    enable = true;
+  home.persistence."/persistent" = {
+    hideMounts = true;
+    allowTrash = true;
 
     directories = [
       "Documents"

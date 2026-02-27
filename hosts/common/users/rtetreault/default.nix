@@ -40,15 +40,6 @@ in {
         };
       };
     }
-
-    (lib.mkIf (config.home-manager.users.${username}.permanenceHomeWrap.enable) {
-      environment.persistence."/persistent" = {
-        users.${username} = {
-          directories = config.home-manager.users.${username}.permanenceHomeWrap.directories;
-          files = config.home-manager.users.${username}.permanenceHomeWrap.files;
-        };
-      };
-    })
     
     {
       sops.secrets."users_password/${username}" = {

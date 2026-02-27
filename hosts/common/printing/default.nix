@@ -25,7 +25,7 @@ in {
 
   environment.persistence."/persistent" = {
     directories = [
-      "/etc/cups/"
+      "/var/lib/cups/"
     ];
   };
 }

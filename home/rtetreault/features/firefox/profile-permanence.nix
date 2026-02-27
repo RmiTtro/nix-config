@@ -1,11 +1,10 @@
 profile:
 
 {config, ...}: {
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       {
         directory = ".mozilla/firefox/${profile}";
-        ${if config.permanenceHomeWrap.isUsingHomeManagerModule then "method" else null} = "bindfs";
       }
     ];
   };

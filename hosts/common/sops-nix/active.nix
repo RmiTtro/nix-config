@@ -18,8 +18,12 @@
     sops.defaultSopsFile = ../secrets.yaml;
     sops.defaultSopsFormat = "yaml";
 
-    sops.age.sshKeyPaths = [ "/etc/ssh/id_ed25519" ];
-
-    fileSystems."/etc/ssh".neededForBoot = config.environment.persistence."/persistent".enable or false;
+    # Must do it this way since the last version of impermanence prevent declaring /etc/ssh neededForBoot
+    # See https://github.com/nix-community/impermanence/issues/294 for more info
+    sops.age.sshKeyPaths = let
+      persistentPrefix = (if config.environment.persistence."/persistent".enable then "/persistent" else "");
+    in [ 
+      (persistentPrefix + "/etc/ssh/id_ed25519") 
+    ];
   };
 }

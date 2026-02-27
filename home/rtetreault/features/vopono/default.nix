@@ -19,7 +19,7 @@
     initFileInSpecialDir = true;
   };
 
-  permanenceHomeWrap = {
+  home.persistence."/persistent" = {
     directories = [
       ".config/vopono"
     ];

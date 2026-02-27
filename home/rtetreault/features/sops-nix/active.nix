@@ -22,7 +22,7 @@
       defaultSopsFile = ../../secrets.yaml;
     };
 
-    permanenceHomeWrap = {
+    home.persistence."/persistent" = {
       files = [
         ".config/sops/age/keys.txt"
       ];
