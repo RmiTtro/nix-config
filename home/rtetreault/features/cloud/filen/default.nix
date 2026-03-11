@@ -3,9 +3,13 @@
   lib,
   config,
   pkgs,
+  pkgs-9da7f1c,
   ...
 }: let
-  filen-desktop = pkgs.filen-desktop;
+  # TODO: Use the most recent version when this pull request is merged: https://github.com/NixOS/nixpkgs/pull/483392/changes/ec760fdc831ddc5c284388ec4614b8ea3767a37a
+  # Use a previous version of filen, the one based on the appimage instead of builded from the source
+  # The one from the source is a bit buggy, like it save its config in ~/.config/Electron instead of ~/.config/@filen/desktop
+  filen-desktop = pkgs-9da7f1c.filen-desktop;
 in
 {
   imports = [ ../cloud-options.nix ];

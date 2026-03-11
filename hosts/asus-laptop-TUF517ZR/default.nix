@@ -114,10 +114,17 @@
 
   services.asusd = {
     enable = true;
-    enableUserService = true;
+
     # Need to use a specific version since the new one only support wayland
     package = pkgs-f89c670.asusctl;
   };
+
+  # This option was removed recently: services.asusd.enableUserService = true;
+  # This do what the option did and is added here since an older version of asusctl 
+  # is being used until the migration to Wayland
+  systemd.user.services.asusd-user.enable = true;
+
+
   # TODO: This need to be changed when I use the current version of asusd, note that the config can now be specified using options
   environment.etc."asusd/asusd.ron" = {
     text = ''

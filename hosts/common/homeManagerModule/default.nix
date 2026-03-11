@@ -4,6 +4,7 @@
   lib,
   config,
   pkgs,
+  pkgs-9da7f1c,
   ...
 }: {
 
@@ -12,7 +13,9 @@
   ];
   
   home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
+    extraSpecialArgs = { 
+      inherit inputs outputs pkgs-9da7f1c;
+    };
     sharedModules = [ 
       outputs.homeManagerModules.addCopyOnChange 
     ];

@@ -6,6 +6,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-f89c670.url = "github:nixos/nixpkgs/f89c670a01ba9b5e2c29c2f692fd654dfab686b5";
+    nixpkgs-9da7f1c.url = "github:nixos/nixpkgs/9da7f1cf7f8a6e2a7cb3001b048546c92a8258b4";
 
     nix-ttf-ms-win11-auto.url = "github:kugland/nix-ttf-ms-win11-auto";
 
@@ -93,6 +94,7 @@
     self,
     nixpkgs,
     nixpkgs-f89c670,
+    nixpkgs-9da7f1c,
     home-manager,
     ...
   } @ inputs: let
@@ -135,6 +137,7 @@
           (makeHostnameOption hostname)
           ./hosts/${hostname}
           (makeSpecificNixPkgsVersionModule "nixpkgs-f89c670")
+          (makeSpecificNixPkgsVersionModule "nixpkgs-9da7f1c")
         ] ++ additionalModules;
       };
     };

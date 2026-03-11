@@ -35,8 +35,11 @@
     enable = true;
 
     # This match Keyboard > Layouts
-    settings."org/gnome/libgnomekbd/keyboard".layouts = ["us" "ca"];
-    settings."org/gnome/libgnomekbd/keyboard".options = ["grp\tgrp:alt_shift_toggle"];
+    settings."org/cinnamon/desktop/input-sources".sources = [
+      (lib.hm.gvariant.mkTuple ["xkb" "us"])
+      (lib.hm.gvariant.mkTuple ["xkb" "ca"])
+    ];
+    settings."org/cinnamon/desktop/keybindings/wm".switch-input-source = ["<Shift>Alt_L" "XF86Keyboard"];
 
     # settings."org/gnome/desktop/interface".color-scheme = "prefer-dark"; # Come from https://nixos.wiki/wiki/GNOME
     settings."org/x/apps/portal".color-scheme = "prefer-dark"; # Come from a search of color-scheme in dconf-editor
