@@ -15,6 +15,7 @@
       ".factorio"
       ".renpy"
       ".config/unity3d"
+      ".config/retroarch"
     ];
   };
 }
