@@ -50,6 +50,7 @@
     ./features/ai/lmstudio
     ./features/virtualbox
     ./features/flatpak
+    ./features/sticky
   ];
 
   nixpkgs = {
