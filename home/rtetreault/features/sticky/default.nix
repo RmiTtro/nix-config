@@ -22,9 +22,12 @@
     settings."org/x/sticky".autostart-notes-visible = true;
   };
 
+  # This directory contain just one file: notes.json
+  # I persist the containing directory because I had an issue where all my notes got deleted when I was just persisting the file and sticky was no longer opening
+  # I'm hoping that by persisting the whole directory, I won't have this issue again 
   home.persistence."/persistent" = {
-    files = [
-      ".config/sticky/notes.json"
+    directories = [
+      ".config/sticky"
     ];
   };
 }
