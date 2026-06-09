@@ -26,15 +26,17 @@
     }; 
   };
 
-  # Necessary to connect to a computer using it's netbios name
-  # https://nixos.wiki/wiki/Samba#Firewall_configuration
-  networking.firewall = lib.mkIf config.networking.firewall.enable { 
-    extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
-  };
-
-  # This is to avertise the share
+  # This is to be discoverable by Windows
   services.samba-wsdd = {
     enable = false;
     openFirewall = true;
+  };
+
+  # This is needed to be able to access the share by hostname
+  services.avahi = {
+    enable = true;
+    openFirewall = true;
+    publish.enable = true;
+    publish.userServices = true;
   };
 }
