@@ -26,9 +26,7 @@
     ../common/nixpkgs
     ../common/locale
     ../common/networking
-    ../common/networking/connections/DERYtelecom_80114276
-    ../common/networking/connections/DERYtelecom_80114276_5G
-    ../common/networking/connections/DERYtelecom_80114276_EXT
+    ../common/networking/connections/VIRGIN513
     ../common/networking/connections/SM-S928W2301
     ../common/sound
     ../common/homeManagerModule
