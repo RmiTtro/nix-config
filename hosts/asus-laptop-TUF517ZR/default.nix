@@ -44,9 +44,14 @@
     ../common/zsa
     ../common/impermanence/active.nix
     ../common/tailscale
-    ../common/virtualbox
+    # TODO: uncomment this when the virtualbox package is fixed
+    # I commented virtualbox since the package was broken last time I was doing an update
+    # I didn't bother using a previous version since I'm currently not using virtualbox
+    #../common/virtualbox
     ../common/flatpak
   ];
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable OpenGL
   hardware.graphics = {
@@ -113,65 +118,117 @@
   services.asusd = {
     enable = true;
 
-    # Need to use a specific version since the new one only support wayland
-    package = pkgs-f89c670.asusctl;
-  };
-
-  # This option was removed recently: services.asusd.enableUserService = true;
-  # This do what the option did and is added here since an older version of asusctl 
-  # is being used until the migration to Wayland
-  systemd.user.services.asusd-user.enable = true;
-
-
-  # TODO: This need to be changed when I use the current version of asusd, note that the config can now be specified using options
-  environment.etc."asusd/asusd.ron" = {
-    text = ''
+    asusdConfig.text = ''
       (
-          charge_control_end_threshold: 80,
-          panel_od: false,
-          mini_led_mode: false,
-          disable_nvidia_powerd_on_battery: true,
-          ac_command: "",
-          bat_command: "",
-          throttle_policy_linked_epp: true,
-          throttle_policy_on_battery: Quiet,
-          throttle_policy_on_ac: Performance,
-          throttle_quiet_epp: Power,
-          throttle_balanced_epp: BalancePower,
-          throttle_performance_epp: Performance,
-          ppt_pl1_spl: None,
-          ppt_pl2_sppt: None,
-          ppt_fppt: None,
-          ppt_apu_sppt: None,
-          ppt_platform_sppt: None,
-          nv_dynamic_boost: None,
-          nv_temp_target: None,
+        charge_control_end_threshold: 80,
+        base_charge_control_end_threshold: 80,
+        disable_nvidia_powerd_on_battery: true,
+        ac_command: "",
+        bat_command: "",
+        platform_profile_linked_epp: true,
+        platform_profile_on_battery: Quiet,
+        change_platform_profile_on_battery: true,
+        platform_profile_on_ac: Performance,
+        change_platform_profile_on_ac: true,
+        profile_quiet_epp: Power,
+        profile_balanced_epp: BalancePower,
+        profile_custom_epp: Performance,
+        profile_performance_epp: Performance,
+        ac_profile_tunings: {
+            Performance: (
+                enabled: false,
+                group: {},
+            ),
+        },
+        dc_profile_tunings: {},
+        armoury_settings: {},
       )
     '';
-    mode = "0644";
-  };
-  # I specify this file just so that the keyboard backlight is off by default
-  environment.etc."asusd/aura.ron" = {
-    text = ''
+
+    # I specify this config just so that the keyboard backlight is off by default
+    auraConfigs.tuf.text = ''
       (
-          brightness: Off,
-          current_mode: Static,
-          builtins: {},
-          multizone: None,
-          multizone_on: false,
-          enabled: AuraDevRog1([
-              Sleep,
-              Keyboard,
-              Boot,
-              Lightbar,
-              Awake,
-          ]),
+        config_name: "aura_tuf.ron",
+        brightness: Off,
+        current_mode: Static,
+        builtins: {
+            Static: (
+                mode: Static,
+                zone: r#None,
+                colour1: (
+                    r: 166,
+                    g: 0,
+                    b: 0,
+                ),
+                colour2: (
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                ),
+                speed: Med,
+                direction: Right,
+            ),
+            Breathe: (
+                mode: Breathe,
+                zone: r#None,
+                colour1: (
+                    r: 166,
+                    g: 0,
+                    b: 0,
+                ),
+                colour2: (
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                ),
+                speed: Med,
+                direction: Right,
+            ),
+            Pulse: (
+                mode: Pulse,
+                zone: r#None,
+                colour1: (
+                    r: 166,
+                    g: 0,
+                    b: 0,
+                ),
+                colour2: (
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                ),
+                speed: Med,
+                direction: Right,
+            ),
+        },
+        multizone_on: false,
+        enabled: (
+            states: [
+                (
+                    zone: Keyboard,
+                    boot: true,
+                    awake: true,
+                    sleep: true,
+                    shutdown: true,
+                ),
+            ],
+        ),
       )
     '';
-    mode = "0644";
   };
+
   programs.rog-control-center.enable = true;
-  programs.rog-control-center.autoStart = true;
+  # TODO: use the autoStart option when it is fixed
+  # The logic behind the autoStart option does account for the prefix that was added to the .desktop file
+  # This is the reason that I'm doing it here manually
+  # programs.rog-control-center.autoStart = true;
+  environment.systemPackages = with pkgs; [
+    (pkgs.makeAutostartItem {
+      name = "rog-control-center";
+      srcPrefix = "org.opengamingcollective.";
+      package = pkgs.asusctl;
+    })
+  ];
   
 
   # Bootloader.
@@ -188,13 +245,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

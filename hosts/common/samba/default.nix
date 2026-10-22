@@ -42,7 +42,9 @@
   services.avahi = {
     enable = true;
     openFirewall = true;
-    publish.enable = true;
-    publish.userServices = true;
+
+    settings.publish.disable-publishing = false;
+    settings.publish.disable-user-service-publishing = false;
+    settings.publish.publish-addresses = true;
   };
 }

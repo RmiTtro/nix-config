@@ -11,21 +11,50 @@ in
   # Modifies existing packages
   modifications = final: prev: {
   	cudatext = addPatches prev.cudatext [ ./patches/cudatext/proc_globdata.patch ];
-    
-    # This is to have the latest tiddlywiki version
-    # To get what to pass to src, I did the following:
-    # 1. Create a package.json file with 
-    #    [
-    #      "tiddlywiki"
-    #    ]
-    # 2. run `nix run nixpkgs#node2nix` in the same directory where the package.json file is
-    # 3. A file named node-packages.nix will be generated containing the information
-    nodePackages_latest.tiddlywiki = prev.nodePackages_latest.tiddlywiki.override {
-      version = "5.3.8";
-      src = final.fetchurl {
-        url = "https://registry.npmjs.org/tiddlywiki/-/tiddlywiki-5.3.8.tgz";
-        sha512 = "T25acZfdhAX/lUVPY/9SXo7bMJKgSaMs5PDOb83S2WKbTCD7DnOUQ4aC3qDy0j5XqlCn4ih3mzMWct3xnQx+Mw==";
-      };
-    };
+
+    # TODO: Remove this overlay once vopono version 1.0.2 is in nixpkgs
+    # This overlay is because the vopono version 1.0.1 that is in nixpkgs bug on my machine, while the newer version work well
+    vopono = prev.vopono.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        version = "1.0.2";
+
+        doCheck = false;
+                                                                           
+        src = final.fetchCrate {
+          inherit (finalAttrs) pname version;
+          hash = "sha256-/zy5VKZO0dptLqM+4kVD3U9p/udgrxw/myjMSBYyDQU=";
+        };
+
+        cargoDeps = final.rustPlatform.importCargoLock {
+          lockFile = finalAttrs.src + "/Cargo.lock";
+          allowBuiltinFetchGit = true;
+        };
+        cargoHash = null;
+      }
+    );
+
+    # TODO: Remove this overlay once I transition to using wayland
+    # This overlay is to have asusctl compiled with X11 support
+    asusctl = prev.asusctl.overrideAttrs(
+      finalAttrs: previousAttrs: {
+        cargoBuildFeatures = previousAttrs.cargoBuildFeatures ++ [
+          "rog-control-center/x11"
+        ];
+
+        buildInputs = previousAttrs.buildInputs ++ [
+          final.libX11
+          final.libXcursor
+          final.libXi
+        ];
+
+        postInstall = ''
+          make prefix=$out install-data
+
+          patchelf $out/bin/rog-control-center \
+            --add-needed ${final.lib.getLib final.libxkbcommon}/lib/libxkbcommon.so.0 \
+            --add-needed ${final.lib.getLib final.libxkbcommon}/lib/libxkbcommon-x11.so.0 
+        '';
+      }
+    );
   };
 }

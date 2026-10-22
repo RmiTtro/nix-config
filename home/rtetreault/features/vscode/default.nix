@@ -15,13 +15,13 @@
   programs.vscode.enable = true;
 
   programs.vscode.profiles.default.userSettings = {
-    "workbench.colorTheme" = "Default Dark Modern";
-    "telemetry.telemetryLevel" = "off";
-    "files.hotExit" = "off";
-    "update.mode" = "none";
-    "extensions.autoCheckUpdates" = false;
-    "extensions.autoUpdate" = false;
     "chat.disableAIFeatures" = true;
+    "extensions.autoCheckUpdates" = false;
+    "extensions.autoUpdate" = "off";
+    "files.hotExit" = "off";
+    "telemetry.telemetryLevel" = "off";
+    "update.mode" = "none";
+    "workbench.colorTheme" = "Dark Modern";
   };
 
   programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${pkgs.stdenv.hostPlatform.system}".vscode-marketplace; [
@@ -30,7 +30,10 @@
 
   home.persistence."/persistent" = {
     directories = [
+      # Where workspaces are saved
       ".config/Code/User"
+      # Where trusted folders are saved
+      ".vscode-shared/sharedStorage"
     ];
   };
 }

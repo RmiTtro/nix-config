@@ -4,7 +4,7 @@ profile:
   home.persistence."/persistent" = {
     directories = [
       {
-        directory = ".mozilla/firefox/${profile}";
+        directory = ".config/mozilla/firefox/${profile}";
       }
     ];
   };
