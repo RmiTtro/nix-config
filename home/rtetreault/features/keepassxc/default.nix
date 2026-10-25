@@ -3,16 +3,12 @@
   lib,
   config,
   pkgs,
-  pkgs-9da7f1c,
   ...
 }: 
 
 lib.mkMerge [
   {
-    # TODO: Get back to using the most recent version of KeepassXC once version 2.7.12 is on NixPkgs
-    # Use the previous version of KeepassXC since the most current one (2.7.11) has a bug that prevent autotype from working on Linux
-    # See: https://github.com/keepassxreboot/keepassxc/issues/12723 for more infos
-    home.packages = with pkgs-9da7f1c; [ keepassxc ];
+    home.packages = with pkgs; [ keepassxc ];
     addCopyOnChange.xdg.configFile."keepassxc/keepassxc.ini".text = ''
       [SSHAgent]
       Enabled=true
